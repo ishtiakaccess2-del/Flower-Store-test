@@ -1,0 +1,2377 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopWave - Premium Floral E-Commerce & Luxury Bouquets</title>
+  
+  <!-- Google Fonts & FontAwesome for Premium Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- External UX Libs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { 
+            sans: ['Poppins', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            price: ['DM Sans', 'sans-serif']
+          },
+          colors: {
+            brand: {
+              50: '#F6EFEA',   /* Luxury Warm Cream */
+              500: '#8B5E3C',  /* Primary Warm Bronze Wood */
+              600: '#754E30',  
+              700: '#5E3E26',
+              accent: '#D4AF37' /* Premium Gold Accent */
+            },
+            darkbg: '#14110F',
+            darkcard: '#1F1A17'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --primary-flower: #8B5E3C;
+      --secondary-flower: #F6EFEA;
+      --accent-flower: #D4AF37;
+      --success-flower: #4CAF50;
+      --text-flower: #2B2B2B;
+      --bg-flower: #FFFDFB;
+    }
+
+    body { 
+      background-color: var(--bg-flower); 
+      color: var(--text-flower);
+      transition: background-color 0.3s ease, color 0.3s ease; 
+    }
+    
+    /* Scrollbars */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(139, 94, 60, 0.05); }
+    ::-webkit-scrollbar-thumb { background: var(--primary-flower); border-radius: 6px; }
+
+    /* Custom Glassmorphism */
+    .glass-card {
+      background: rgba(255, 253, 251, 0.45);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    .dark .glass-card {
+      background: rgba(31, 26, 23, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Falling Flower Petals */
+    #petal-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+      overflow: hidden;
+    }
+    .petal {
+      position: absolute;
+      background-color: #fbcfe8;
+      border-radius: 150% 0 150% 150%;
+      opacity: 0.6;
+      animation: fall linear forwards;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-5%) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.7; }
+      90% { opacity: 0.7; }
+      100% { transform: translateY(105vh) translateX(120px) rotate(360deg); opacity: 0; }
+    }
+
+    /* Floating Image effect */
+    .floating-img {
+      animation: floatY 6s ease-in-out infinite;
+    }
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .view-pane { transition: opacity 0.25s ease-in-out; }
+
+    /* Active Nav Highlight Indicator */
+    .nav-indicator-pill {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+</head>
+<body class="bg-amber-50/20 text-gray-800 dark:bg-darkbg dark:text-amber-50/90 min-h-screen flex flex-col transition-colors duration-300 relative">
+
+  <!-- FLOWER PETAL ANIMATION CONTAINER -->
+  <div id="petal-container"></div>
+
+  <!-- ================= TOP NAVIGATION BAR ================= -->
+  <header class="sticky top-0 z-40 w-full border-b border-brand-50/80 dark:border-amber-900/10 bg-white/70 dark:bg-darkbg/70 backdrop-blur-md transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative">
+      
+      <!-- Left: Logo (Double Click for admin portal entry) -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')" ondblclick="window.openLoginModal()" title="Double click for administrative portal">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-accent flex items-center justify-center text-white shadow-xl shadow-brand-500/10 shopwave-logo-icon">
+          <i class="fa-solid fa-seedling text-lg"></i>
+        </div>
+        <div>
+          <span class="text-2xl font-serif font-black tracking-tight bg-gradient-to-r from-brand-600 via-brand-accent to-brand-500 bg-clip-text text-transparent shopwave-logo-text">ShopWave</span>
+          <p class="text-[9px] uppercase tracking-widest text-brand-500/60 font-bold">Luxury Florist</p>
+        </div>
+      </div>
+
+      <!-- Main Navigation -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-600 dark:text-gray-300">
+        <button onclick="navigateTo('home')" class="hover:text-brand-500 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-heart-pulse text-xs"></i> Home</button>
+        <button onclick="navigateTo('all-store')" class="hover:text-brand-500 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-store text-xs"></i> All Collections</button>
+        <button onclick="openWishlistModal()" class="hover:text-brand-500 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-heart text-xs text-rose-500"></i> Wishlist (<span class="wishlist-count-badge">0</span>)</button>
+        <a href="#contact" class="hover:text-brand-500 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-circle-info text-xs"></i> Contact</a>
+      </nav>
+
+      <!-- Right Header Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Global Search bar input with live suggestions -->
+        <div class="relative hidden sm:block">
+          <input type="text" id="searchInput" oninput="showSearchSuggestions(this.value)" placeholder="Search bouquets..." class="w-44 xl:w-56 pl-9 pr-4 py-2 rounded-xl text-xs bg-brand-50/50 dark:bg-amber-950/20 border border-brand-500/10 dark:border-brand-500/20 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-all">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-brand-500/50 text-xs"></i>
+          <!-- Suggestions Dropdown -->
+          <div id="searchSuggestionsBox" class="absolute left-0 right-0 mt-2 bg-white dark:bg-darkcard border border-brand-50/80 dark:border-amber-950/20 rounded-xl shadow-xl hidden z-50 overflow-hidden text-xs">
+            <div id="suggestionsList" class="p-1 max-h-48 overflow-y-auto"></div>
+          </div>
+        </div>
+
+        <!-- Cart Trigger Button -->
+        <button onclick="openCartDrawer()" class="relative p-2.5 rounded-xl bg-brand-50/50 dark:bg-amber-950/20 text-brand-500 dark:text-brand-accent hover:bg-brand-50 dark:hover:bg-amber-950/40 transition-colors">
+          <i class="fa-solid fa-bag-shopping text-base"></i>
+          <span id="cartCountBadge" class="absolute -top-1.5 -right-1.5 bg-brand-accent text-white text-[9px] font-bold w-4.5 h-4.5 rounded-full flex items-center justify-center">0</span>
+        </button>
+
+        <!-- User Authentication UI -->
+        <div id="userAuthSection" class="relative">
+          <button id="userAuthBtn" onclick="openUserAuthModal()" class="flex items-center gap-2 text-xs font-bold bg-brand-500 hover:bg-brand-600 text-white px-4 py-2.5 rounded-xl transition-all shadow-md shadow-brand-500/10">
+            <i class="fa-solid fa-user-circle text-sm"></i> Login
+          </button>
+          <div id="userProfileDropdown" class="absolute right-0 mt-2 w-48 rounded-xl bg-white dark:bg-darkcard border border-brand-50/80 dark:border-amber-950/20 shadow-xl hidden z-50 py-1">
+            <div class="px-4 py-2 border-b border-brand-50 dark:border-amber-950/20">
+              <p id="profileUserName" class="font-bold text-xs truncate"></p>
+              <p id="profileUserEmail" class="text-[10px] text-gray-400 truncate"></p>
+            </div>
+            <button onclick="userLogout()" class="w-full text-left px-4 py-2 text-xs text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 font-bold flex items-center gap-2">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out
+            </button>
+          </div>
+        </div>
+
+        <!-- Light/Dark Theme Switcher -->
+        <button id="themeToggleBtn" class="p-2.5 rounded-xl bg-brand-50/50 dark:bg-amber-950/20 text-brand-500 dark:text-brand-accent hover:bg-brand-50 dark:hover:bg-amber-950/40 transition-colors">
+          <i id="themeToggleIcon" class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN VIEWPORT ================= -->
+  <main id="mainViewport" class="flex-grow pb-24 md:pb-12">
+    
+    <!-- PAGE 1: LUXURY HOME VIEW PANE -->
+    <div id="view-home" class="view-pane">
+      
+      <!-- HERO PARALLAX HEADER / FIND BOUQUET GREETING -->
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4" data-aos="fade-up">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1.5">
+              <span id="dayGreeting" class="text-sm font-semibold text-brand-500/80">Good Morning 👋</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-serif font-black tracking-tight text-gray-900 dark:text-white">
+              Find your perfect <span class="italic text-brand-accent">bouquet</span>
+            </h1>
+          </div>
+          
+          <!-- Category Filter Horizontal Chips / Pills -->
+          <div class="flex items-center gap-2 overflow-x-auto py-2 no-scrollbar">
+            <button onclick="filterAllStoreByCategory('')" class="px-4 py-2 rounded-full text-xs font-bold tracking-wide transition-all duration-300 shrink-0 bg-brand-500 text-white shadow-lg shadow-brand-500/25">
+              ● All Bouquets
+            </button>
+            <div id="homeCategoryChips" class="flex items-center gap-2">
+              <!-- Dynamically Populated Category Chips -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURED SPOTLIGHT LUXURY BOUQUET (HERO SLIDER) -->
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="bg-gradient-to-r from-brand-50 via-white to-brand-50 dark:from-darkcard dark:via-darkbg dark:to-darkcard border border-brand-500/10 dark:border-brand-500/25 rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden shadow-2xl">
+          <!-- Swiper Slider wrapper inside -->
+          <div class="swiper heroSwiper">
+            <div class="swiper-wrapper" id="sliderWrapper">
+              <!-- Dynamically populated promo slides (Roses, Jasmine, Wedding, Gifts, etc.) -->
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- POPULAR FLOWERS HORIZONTAL BAR -->
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6" data-aos="fade-up">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-serif font-bold flex items-center gap-2">
+            <span class="w-1.5 h-6 bg-brand-accent rounded-full"></span> Popular Varieties
+          </h2>
+          <button onclick="navigateTo('all-store')" class="text-xs text-brand-500 hover:text-brand-accent font-black tracking-wider uppercase flex items-center gap-1.5 transition-all">
+            Explore All <i class="fa-solid fa-arrow-right-long"></i>
+          </button>
+        </div>
+        <div class="flex items-center gap-3 overflow-x-auto py-1 no-scrollbar">
+          <div class="flex items-center gap-3 px-1" id="popularFlowerPills">
+            <!-- Dynamic list of categories with floral icons -->
+          </div>
+        </div>
+      </section>
+
+      <!-- HOT SELLING GLASS CARDS SECTION -->
+      <section id="hot-items" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-aos="fade-up">
+        <div class="flex items-center gap-2 mb-6">
+          <div class="w-2.5 h-7 bg-red-500 rounded-full"></div>
+          <h2 class="text-2xl font-serif font-bold text-red-500 flex items-center gap-2">
+            <i class="fa-solid fa-fire animate-pulse text-xl"></i> Signature Masterpieces
+          </h2>
+        </div>
+        <div id="hotItemsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Glassmorphism flower bouquet cards (Circular image, soft shadow, ratings, checkout) -->
+        </div>
+      </section>
+
+      <!-- THE CORE CATALOG PREVIEW -->
+      <section id="products" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10" data-aos="fade-up">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+          <div>
+            <p class="text-brand-500 font-bold uppercase tracking-widest text-[10px]">L'Atelier Boutique</p>
+            <h2 class="text-3xl font-serif font-black tracking-tight">Handcrafted Collections</h2>
+          </div>
+          <button onclick="navigateTo('all-store')" class="text-sm text-brand-500 hover:text-brand-accent font-bold flex items-center gap-1">
+            See Entire Catalog <i class="fa-solid fa-chevron-right text-xs"></i>
+          </button>
+        </div>
+        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Dynamic flowers list -->
+        </div>
+      </section>
+    </div>
+
+    <!-- PAGE 2: All-ITEMS-STORE VIEW -->
+    <div id="view-all-store" class="view-pane hidden">
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <!-- Store Banner Info -->
+        <div class="bg-gradient-to-r from-[#5E3E26] via-[#1F1A17] to-[#5E3E26] rounded-[2.5rem] p-8 md:p-12 text-white mb-10 shadow-2xl border border-white/5 relative overflow-hidden">
+          <div class="absolute -right-24 -bottom-24 w-80 h-80 rounded-full bg-brand-accent/10 blur-3xl"></div>
+          <span class="text-brand-accent font-extrabold tracking-wider uppercase text-xs px-3.5 py-1 bg-brand-accent/10 rounded-full border border-brand-accent/20">Official Flower Catalog</span>
+          <h1 class="text-4xl md:text-5xl font-serif font-black mt-3 mb-2 tracking-tight">The Boutique Catalog</h1>
+          <p class="text-xs md:text-sm text-amber-100/60 max-w-xl font-medium leading-relaxed">Direct connection to our floral workshop reserve database. Any updates made inside the console room apply instantly.</p>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+          <!-- Left Sidebar Filters -->
+          <div class="lg:w-1/4 space-y-6">
+            <div class="glass-card p-6 rounded-[2rem] border border-brand-500/10 shadow-lg">
+              <h3 class="font-serif font-bold text-base mb-4 flex items-center gap-2"><i class="fa-solid fa-filter text-brand-accent"></i> Filter Selections</h3>
+              
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-[10px] font-bold text-brand-500/80 mb-2 uppercase tracking-wider">Keyword Search</label>
+                  <div class="relative">
+                    <input type="text" id="storeSearchInput" oninput="updateStorefrontDOM()" class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-brand-50/50 dark:bg-amber-950/10 border border-transparent focus:border-brand-accent outline-none text-xs font-semibold">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-brand-500/50 text-xs"></i>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-[10px] font-bold text-brand-500/80 mb-2 uppercase tracking-wider">Boutique Categories</label>
+                  <div id="storeCategoryFilterList" class="flex flex-wrap lg:flex-col gap-2">
+                    <!-- Dynamic Category sidebar selection buttons -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Grid -->
+          <div class="lg:w-3/4 space-y-6">
+            <div class="flex items-center justify-between text-xs font-semibold text-brand-500/80">
+              <span id="storeProductsCount">0 premium arrangements active</span>
+              <span>Sorted: Curated Collection</span>
+            </div>
+            <div id="storeFullGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <!-- Live products generated inside -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- PAGE 3: INDIVIDUAL CATEGORY VIEW PANE -->
+    <div id="view-category-page" class="view-pane hidden">
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <!-- Breadcrumbs -->
+        <div class="flex items-center gap-2 text-xs text-brand-500 font-semibold mb-6">
+          <button onclick="navigateTo('home')" class="hover:text-brand-accent transition-colors">Home</button>
+          <i class="fa-solid fa-chevron-right text-[8px] text-brand-500/50"></i>
+          <span>Categories</span>
+          <i class="fa-solid fa-chevron-right text-[8px] text-brand-500/50"></i>
+          <span id="catPageBreadcrumb" class="text-brand-accent font-bold">Category</span>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-brand-50 dark:border-amber-950/20 gap-4">
+          <div>
+            <span class="text-brand-500 font-bold uppercase tracking-widest text-[10px]">Curated Florals</span>
+            <h1 id="catPageTitle" class="text-4xl font-serif font-black tracking-tight mt-1">Category Bouquets</h1>
+          </div>
+          <span id="catProductCount" class="text-xs bg-brand-accent/10 text-brand-accent font-bold px-3.5 py-1.5 rounded-full border border-brand-accent/20">0 items</span>
+        </div>
+
+        <div id="catProductsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Dynamic category list inside -->
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- ================= LUXURY CONTACT FOOTER ================= -->
+  <footer id="contact" class="bg-brand-50/50 dark:bg-[#14110F] border-t border-brand-500/10 dark:border-brand-500/5 py-14 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-9 h-9 rounded-xl bg-brand-500 text-white flex items-center justify-center shopwave-logo-icon">
+              <i class="fa-solid fa-seedling text-base"></i>
+            </div>
+            <span class="text-xl font-serif font-black text-brand-500 shopwave-logo-text">ShopWave</span>
+          </div>
+          <p class="text-brand-700/70 dark:text-gray-400 text-xs max-w-sm mb-4 leading-relaxed">
+            Crafting magnificent luxury flower bouquets and custom floral arrangements with pre-filled WhatsApp checkout systems and physical store operator hand-delivery.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-serif font-bold text-sm mb-4">Navigation</h4>
+          <ul class="space-y-2.5 text-xs font-semibold text-brand-700/60 dark:text-gray-400">
+            <li><button onclick="navigateTo('home')" class="hover:text-brand-accent">Home Catalog</button></li>
+            <li><button onclick="navigateTo('all-store')" class="hover:text-brand-accent">All Collections</button></li>
+            <li><button onclick="openWishlistModal()" class="hover:text-brand-accent">Wishlist</button></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-serif font-bold text-sm mb-4">Workshop Operator</h4>
+          <ul class="space-y-2.5 text-xs font-semibold text-brand-700/60 dark:text-gray-400">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-brand-accent"></i> <span id="footerPhoneDisplay">+8801700000000</span></li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-brand-accent"></i> Dhaka, Bangladesh</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-brand-500/10 dark:border-brand-500/5 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-brand-500/60 dark:text-gray-400 gap-4">
+        <p>&copy; 2026 ShopWave. All rights reserved.</p>
+        <p>Built with absolute precision. <span class="cursor-pointer underline text-brand-accent hover:text-brand-600 font-bold" onclick="openLoginModal()">System Console Portal</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= FIXED FLOATING BOT NAVIGATION BAR (MOBILE) ================= -->
+  <div class="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/80 dark:bg-[#14110F]/80 backdrop-blur-md border-t border-brand-500/10 dark:border-brand-500/5 px-6 py-3 flex items-center justify-between shadow-2xl relative">
+    <button onclick="navigateTo('home')" class="flex flex-col items-center gap-1 text-brand-500 dark:text-brand-accent">
+      <i class="fa-solid fa-home text-base"></i>
+      <span class="text-[9px] font-bold">Home</span>
+    </button>
+    <button onclick="openWishlistModal()" class="flex flex-col items-center gap-1 text-gray-400">
+      <i class="fa-solid fa-heart text-base text-rose-500"></i>
+      <span class="text-[9px] font-bold">Wish</span>
+    </button>
+    <button onclick="focusSearchInput()" class="flex flex-col items-center gap-1 text-gray-400">
+      <i class="fa-solid fa-magnifying-glass text-base"></i>
+      <span class="text-[9px] font-bold">Search</span>
+    </button>
+    <button onclick="openCartDrawer()" class="flex flex-col items-center gap-1 text-gray-400 relative">
+      <i class="fa-solid fa-bag-shopping text-base"></i>
+      <span class="wish-cart-count absolute -top-1.5 -right-1.5 bg-brand-accent text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+      <span class="text-[9px] font-bold">Cart</span>
+    </button>
+    <button onclick="openUserAuthModal()" class="flex flex-col items-center gap-1 text-gray-400">
+      <i class="fa-solid fa-user-circle text-base"></i>
+      <span class="text-[9px] font-bold">Profile</span>
+    </button>
+  </div>
+
+  <!-- ================= FLOATING 24/7 SUPPORT LIVE WIDGET ================= -->
+  <div class="fixed bottom-16 md:bottom-6 right-6 z-40 flex flex-col items-end gap-2">
+    <div id="supportNotificationBubble" class="bg-white dark:bg-darkcard text-gray-800 dark:text-white px-3.5 py-1.5 rounded-2xl shadow-xl border border-brand-500/10 dark:border-brand-500/5 text-xs font-bold flex items-center gap-2 animate-bounce cursor-pointer" onclick="openSupportChannel()">
+      <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-ping"></span>
+      Operator Online
+    </div>
+    <button onclick="openSupportChannel()" class="w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 text-white flex items-center justify-center shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300">
+      <i class="fa-brands fa-whatsapp text-3xl"></i>
+    </button>
+  </div>
+
+  <!-- ================= MODAL: LUXURY WISHLIST OVERLAY ================= -->
+  <div id="wishlistModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center px-4">
+    <div class="bg-white dark:bg-darkcard rounded-[2.5rem] w-full max-w-lg p-6 border border-brand-500/15 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+      <button onclick="closeWishlistModal()" class="absolute top-5 right-5 text-gray-400 hover:text-brand-accent text-xl">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h3 class="text-2xl font-serif font-black mb-4 flex items-center gap-2"><i class="fa-solid fa-heart text-rose-500"></i> Your Wishlist</h3>
+      <div id="wishlistContainer" class="space-y-4 divide-y divide-brand-500/10">
+        <!-- Wishlist items listed here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: SHOPPING CART DRAWER ================= -->
+  <div id="cartDrawer" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex justify-end">
+    <div class="bg-white dark:bg-darkcard w-full max-w-md h-full p-6 border-l border-brand-500/15 shadow-2xl flex flex-col justify-between relative">
+      <button onclick="closeCartDrawer()" class="absolute top-5 left-5 text-gray-400 hover:text-brand-accent text-xl">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      
+      <div class="mt-8 flex-grow overflow-y-auto">
+        <h3 class="text-2xl font-serif font-black mb-6 flex items-center gap-2"><i class="fa-solid fa-bag-shopping text-brand-accent"></i> Your Bouquet Basket</h3>
+        <div id="cartItemsContainer" class="space-y-4">
+          <!-- Basket item lines -->
+        </div>
+      </div>
+
+      <div class="border-t border-brand-500/10 pt-4 space-y-4">
+        <div class="flex items-center justify-between text-base font-bold">
+          <span>Basket Total</span>
+          <span id="cartTotalSum" class="price-font text-brand-accent text-xl">$0.00</span>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <button onclick="closeCartDrawer()" class="py-3 rounded-xl border border-brand-500/20 text-xs font-bold hover:bg-brand-50 dark:hover:bg-amber-950/10 transition-colors">Keep Shopping</button>
+          <button onclick="openCheckoutModal()" class="py-3 rounded-xl bg-brand-accent hover:bg-yellow-600 text-white text-xs font-bold shadow-lg transition-all">Proceed to Checkout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: PRODUCT DETAIL SHEETS ================= -->
+  <div id="productDetailModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center px-4 overflow-y-auto">
+    <div class="bg-white dark:bg-darkcard rounded-[2.5rem] w-full max-w-2xl p-6 border border-brand-500/15 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeProductDetailModal()" class="absolute top-5 right-5 text-gray-400 hover:text-brand-accent text-xl z-20">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+        <div class="relative rounded-3xl overflow-hidden bg-brand-50/20 dark:bg-amber-950/10 aspect-square">
+          <img id="detailProductImg" src="" alt="Bouquet" class="absolute inset-0 w-full h-full object-cover">
+        </div>
+        <div class="flex flex-col justify-between space-y-4">
+          <div>
+            <span id="detailProductCat" class="text-[10px] font-bold text-brand-accent uppercase tracking-widest">Roses</span>
+            <h3 id="detailProductTitle" class="text-2xl font-serif font-black text-gray-900 dark:text-white mt-1">Hydrangea</h3>
+            <div class="flex items-center gap-1.5 mt-2">
+              <div class="flex text-amber-400 text-xs">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <span class="text-xs font-bold text-gray-400">(4.9 rating)</span>
+            </div>
+            <div id="detailProductPrice" class="text-2xl font-black text-brand-500 price-font mt-3">$29</div>
+            
+            <p id="detailProductDesc" class="text-xs text-brand-700/70 dark:text-gray-400 mt-4 leading-relaxed">
+              Full descriptions of the crafted boutique arrangement.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-bold">Qty:</span>
+              <div class="flex items-center border border-brand-500/20 rounded-lg overflow-hidden text-xs">
+                <button onclick="changeDetailQty(-1)" class="px-2.5 py-1 bg-brand-50/50 hover:bg-brand-50 font-bold">-</button>
+                <span id="detailProductQty" class="px-4 font-bold text-xs">1</span>
+                <button onclick="changeDetailQty(1)" class="px-2.5 py-1 bg-brand-50/50 hover:bg-brand-50 font-bold">+</button>
+              </div>
+            </div>
+
+            <!-- Accordion Details -->
+            <div class="text-[11px] space-y-2 border-t border-brand-500/10 pt-3">
+              <details class="group outline-none">
+                <summary class="font-bold flex justify-between cursor-pointer text-brand-500 hover:text-brand-accent">Delivery & Protection Info <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i></summary>
+                <p class="text-gray-400 mt-1">Hand-delivered in protective premium gel grids to keep stems hydrated and blooms pristine.</p>
+              </details>
+              <details class="group outline-none">
+                <summary class="font-bold flex justify-between cursor-pointer text-brand-500 hover:text-brand-accent">Reviews & Feedbacks <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i></summary>
+                <p class="text-gray-400 mt-1">Highly praised by over 120 clients for freshness and exquisite arrangement style.</p>
+              </details>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 pt-2">
+              <button id="detailAddCartBtn" class="py-2.5 rounded-xl border border-brand-500 hover:bg-brand-500 hover:text-white text-xs font-bold transition-all flex items-center justify-center gap-1.5"><i class="fa-solid fa-bag-shopping"></i> Basket</button>
+              <button id="detailBuyNowBtn" class="py-2.5 rounded-xl bg-brand-accent hover:bg-yellow-600 text-white text-xs font-bold transition-all shadow-md">Purchase Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: SECURE CHECKOUT & GATEWAY ================= -->
+  <div id="checkoutModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center px-4 overflow-y-auto">
+    <div class="bg-white dark:bg-darkcard rounded-[2.5rem] w-full max-w-lg p-6 border border-brand-500/15 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeCheckoutModal()" class="absolute top-5 right-5 text-gray-400 hover:text-brand-accent text-xl">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h3 class="text-2xl font-serif font-black mb-4 flex items-center gap-2"><i class="fa-solid fa-credit-card text-brand-accent"></i> Flower Order Checkout</h3>
+      
+      <form id="checkoutForm" onsubmit="processCheckoutOrder(event)" class="space-y-5">
+        <div>
+          <label class="block text-[10px] font-bold text-brand-500/80 mb-2 uppercase tracking-wider">Delivery Shipping Address</label>
+          <textarea required id="checkoutAddress" rows="2" class="w-full px-4 py-2.5 rounded-xl bg-brand-50/50 dark:bg-amber-950/10 border border-brand-500/10 focus:border-brand-accent outline-none text-xs leading-relaxed" placeholder="Apartment / Road details / City boundary..."></textarea>
+        </div>
+
+        <div>
+          <label class="block text-[10px] font-bold text-brand-500/80 mb-2 uppercase tracking-wider">Select Preferred Gateway</label>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="flex items-center gap-3 p-3 rounded-xl border border-brand-500/15 cursor-pointer hover:bg-brand-50/50 transition-colors">
+              <input type="radio" name="payment_method" value="Bkash" checked class="accent-brand-accent">
+              <span class="text-xs font-bold text-[#E2125D]"><i class="fa-solid fa-wallet"></i> bKash</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-xl border border-brand-500/15 cursor-pointer hover:bg-brand-50/50 transition-colors">
+              <input type="radio" name="payment_method" value="Nagad" class="accent-brand-accent">
+              <span class="text-xs font-bold text-[#F47E20]"><i class="fa-solid fa-wallet"></i> Nagad</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-xl border border-brand-500/15 cursor-pointer hover:bg-brand-50/50 transition-colors">
+              <input type="radio" name="payment_method" value="Visa Card" class="accent-brand-accent">
+              <span class="text-xs font-bold text-blue-600"><i class="fa-brands fa-cc-visa text-sm"></i> Visa Card</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-xl border border-brand-500/15 cursor-pointer hover:bg-brand-50/50 transition-colors">
+              <input type="radio" name="payment_method" value="COD" class="accent-brand-accent">
+              <span class="text-xs font-bold"><i class="fa-solid fa-hand-holding-dollar text-sm"></i> Hand COD</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="bg-brand-50/40 dark:bg-amber-950/10 p-4 rounded-2xl border border-brand-500/5 space-y-2">
+          <div class="flex justify-between text-xs font-semibold text-gray-500">
+            <span>Subtotal Bouquet Items</span>
+            <span id="checkoutSubtotal" class="price-font">$0.00</span>
+          </div>
+          <div class="flex justify-between text-xs font-semibold text-gray-500">
+            <span>Special Hand Delivery</span>
+            <span id="checkoutDelivery" class="price-font">$5.00</span>
+          </div>
+          <hr class="border-brand-500/10">
+          <div class="flex justify-between text-sm font-bold text-gray-800 dark:text-white">
+            <span>Total Payable Amount</span>
+            <span id="checkoutGrandTotal" class="price-font text-brand-accent text-base">$0.00</span>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-600 to-brand-accent hover:from-brand-500 hover:to-yellow-500 text-white font-bold text-xs tracking-wider uppercase shadow-xl transition-all flex items-center justify-center gap-2">
+          <i class="fa-brands fa-whatsapp text-sm"></i> Prefill & Order on WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: USER SESSION AUTHENTICATIONS ================= -->
+  <div id="userAuthModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden px-4">
+    <div class="bg-white dark:bg-darkcard rounded-[2.5rem] w-full max-w-md p-6 border border-brand-500/15 shadow-2xl relative">
+      <button onclick="closeUserAuthModal()" class="absolute top-5 right-5 text-gray-400 hover:text-brand-accent text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="flex border-b border-brand-50 dark:border-amber-950/20 mb-6">
+        <button id="tabUserLogin" onclick="switchUserAuthTab('login')" class="flex-1 pb-3 text-sm font-serif font-bold border-b-2 border-brand-accent text-brand-accent">Sign In</button>
+        <button id="tabUserRegister" onclick="switchUserAuthTab('register')" class="flex-1 pb-3 text-sm font-serif font-bold border-b-2 border-transparent text-gray-400 hover:text-brand-accent">Register</button>
+      </div>
+
+      <!-- User Login -->
+      <form id="userLoginForm" class="space-y-4">
+        <div>
+          <label class="block text-[10px] font-bold text-brand-500/80 mb-2 uppercase tracking-wider">Email Address</label>
+          <input type="email" id="userLoginEmail" required class="w-full px-4 py-2.5 rounded-xl bg-brand-50/50 dark:bg-amber-950/10 border border-brand-500/10 focus:border-brand-accent outline-none text-xs font-semibold">
+        </div>
+        <div>
+          <label class="block text-[10px] font-bold text-brand-500/80 mb-2 uppercase tracking-wider">Password</label>
+          <input type="password" id="userLoginPassword" required class="w-full px-4 py-2.5 rounded-xl bg-brand-50/50 dark:bg-amber-950/10 border border-brand-500/10 focus:border-brand-accent outline-none text-xs">
+        </div>
+        <button type="submit" class="w-full py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold tracking-wider uppercase transition-all shadow-md">Authenticate</button>
+      </form>
+
+      <!-- User Register -->
+      <form id="userRegisterForm" class="space-y-4 hidden">
+        <div>
+          <label class="block text-[10px] font-bold text-brand-500/80 mb-2 uppercase tracking-wider">Full Name</label>
+          <input type="text" id="userRegName" required class="w-full px-4 py-2.5 rounded-xl bg-brand-50/50 dark:bg-amber-950/10 border border-brand-500/10 focus:border-brand-accent outline-none text-xs font-semibold">
+        </div>
+        <div>
+          <label class="block text-[10px] font-bold text-brand-500/80 mb-2 uppercase tracking-wider">Email Address</label>
+          <input type="email" id="userRegEmail" required class="w-full px-4 py-2.5 rounded-xl bg-brand-50/50 dark:bg-amber-950/10 border border-brand-500/10 focus:border-brand-accent outline-none text-xs font-semibold">
+        </div>
+        <div>
+          <label class="block text-[10px] font-bold text-brand-500/80 mb-2 uppercase tracking-wider">Create Security Password</label>
+          <input type="password" id="userRegPassword" required class="w-full px-4 py-2.5 rounded-xl bg-brand-50/50 dark:bg-amber-950/10 border border-brand-500/10 focus:border-brand-accent outline-none text-xs">
+        </div>
+        <button type="submit" class="w-full py-3 rounded-xl bg-brand-accent hover:bg-yellow-600 text-white text-xs font-bold tracking-wider uppercase transition-all shadow-md">Establish Account</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: SECURE ADMINISTRATIVE PANEL LOGIN ================= -->
+  <div id="adminLoginModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden px-4">
+    <div class="bg-white dark:bg-darkcard rounded-[2.5rem] w-full max-w-md p-6 border border-brand-500/15 shadow-2xl relative">
+      <button onclick="closeLoginModal()" class="absolute top-5 right-5 text-gray-400 hover:text-brand-accent text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 rounded-xl bg-brand-accent/15 text-brand-accent flex items-center justify-center text-xl mx-auto mb-3">
+          <i class="fa-solid fa-shield-halved text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-serif font-bold">Admin Console Room</h3>
+        <p class="text-xs text-gray-400 mt-1">Authorized Workshop Access Point</p>
+      </div>
+
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <label class="block text-[10px] font-bold text-brand-500/80 mb-2 uppercase tracking-wider">Security Identifier</label>
+          <input type="email" id="loginEmail" required class="w-full px-4 py-2.5 rounded-xl bg-brand-50/50 dark:bg-amber-950/10 border border-brand-500/10 focus:border-brand-accent outline-none text-xs font-semibold" placeholder="ishtiakyt@gmail.com">
+        </div>
+        <div>
+          <label class="block text-[10px] font-bold text-brand-500/80 mb-2 uppercase tracking-wider">Password</label>
+          <input type="password" id="loginPassword" required class="w-full px-4 py-2.5 rounded-xl bg-brand-50/50 dark:bg-amber-950/10 border border-brand-500/10 focus:border-brand-accent outline-none text-xs" placeholder="••••••••">
+        </div>
+        <div id="loginErrorMsg" class="text-red-500 text-xs hidden flex items-center gap-1.5 bg-red-500/10 border border-red-500/20 p-2.5 rounded-lg font-semibold">
+          <i class="fa-solid fa-circle-exclamation"></i> Security credentials verification failed.
+        </div>
+        <button type="submit" class="w-full py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold tracking-wider uppercase transition-all shadow-md">Authenticate console</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: SECURE WORKSPACE MANAGER (DASHBOARD) ================= -->
+  <div id="adminDashboard" class="fixed inset-0 z-50 bg-brand-50/40 dark:bg-darkbg overflow-y-auto hidden">
+    <header class="sticky top-0 z-50 bg-white dark:bg-darkcard border-b border-brand-500/10 py-4 px-6 shadow-sm">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-brand-accent text-white flex items-center justify-center text-sm"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+          <div>
+            <span class="font-serif font-bold text-lg leading-none">Console Room</span>
+            <p class="text-[9px] uppercase tracking-wider text-brand-500 font-bold">Interactive Engine Synchronizer</p>
+          </div>
+        </div>
+        <button onclick="adminLogout()" class="text-xs bg-red-500/10 hover:bg-red-500/20 text-red-500 px-4 py-2 rounded-xl font-bold transition-colors">
+          <i class="fa-solid fa-arrow-right-from-bracket mr-1.5"></i> Exit Dashboard
+        </button>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Sidebar Tabs -->
+        <aside class="lg:col-span-3 space-y-2">
+          <button onclick="switchDashboardTab('productsTab')" id="btn-productsTab" class="w-full text-left p-3.5 rounded-xl font-bold text-xs tracking-wider uppercase flex items-center gap-3 transition-all bg-brand-500 text-white">
+            <i class="fa-solid fa-spa"></i> Floral Inventory
+          </button>
+          <button onclick="switchDashboardTab('categoriesTab')" id="btn-categoriesTab" class="w-full text-left p-3.5 rounded-xl font-bold text-xs tracking-wider uppercase flex items-center gap-3 transition-all text-gray-600 dark:text-gray-300 hover:bg-brand-50/50 dark:hover:bg-amber-950/10">
+            <i class="fa-solid fa-tags"></i> Bouquet Categories
+          </button>
+          <button onclick="switchDashboardTab('bannersTab')" id="btn-bannersTab" class="w-full text-left p-3.5 rounded-xl font-bold text-xs tracking-wider uppercase flex items-center gap-3 transition-all text-gray-600 dark:text-gray-300 hover:bg-brand-50/50 dark:hover:bg-amber-950/10">
+            <i class="fa-solid fa-images"></i> Promo Sliders
+          </button>
+          <button onclick="switchDashboardTab('settingsTab')" id="btn-settingsTab" class="w-full text-left p-3.5 rounded-xl font-bold text-xs tracking-wider uppercase flex items-center gap-3 transition-all text-gray-600 dark:text-gray-300 hover:bg-brand-50/50 dark:hover:bg-amber-950/10">
+            <i class="fa-solid fa-palette"></i> Branding & Setup
+          </button>
+          <div class="p-4 bg-yellow-500/15 border border-yellow-500/20 rounded-2xl text-yellow-600 dark:text-yellow-500 text-xs mt-6">
+            <h5 class="font-bold uppercase tracking-wider mb-1">Runtime Sync Status</h5>
+            <p id="dbModeText" class="leading-relaxed font-semibold">Active Database streaming...</p>
+          </div>
+        </aside>
+
+        <!-- Main Dashboard Workspace Content -->
+        <div class="lg:col-span-9 space-y-8">
+          
+          <!-- TAB 1: PRODUCT MANAGEMENT -->
+          <div id="panel-productsTab" class="space-y-6">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-serif font-black">Flower Boutique Inventory</h3>
+              <button onclick="openProductForm()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs tracking-wider uppercase px-4 py-2.5 rounded-xl">
+                <i class="fa-solid fa-plus mr-1.5"></i> Insert Arrangement
+              </button>
+            </div>
+
+            <!-- Product Form Inline Container -->
+            <div id="productFormContainer" class="hidden bg-white dark:bg-darkcard p-6 rounded-[2rem] border border-brand-500/10 shadow-lg space-y-4">
+              <h4 id="productFormTitle" class="text-lg font-serif font-bold">New Catalog Arrangement</h4>
+              <form id="productForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="hidden" id="editProductId">
+                <div>
+                  <label class="block text-[10px] font-bold text-brand-500 uppercase mb-1">Arrangement Title</label>
+                  <input type="text" id="prodName" required class="w-full px-3 py-2 rounded-lg bg-brand-50/30 dark:bg-amber-950/10 border border-brand-500/10 text-xs font-semibold focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold text-brand-500 uppercase mb-1">Price Unit</label>
+                  <input type="number" step="0.01" id="prodPrice" required class="w-full px-3 py-2 rounded-lg bg-brand-50/30 dark:bg-amber-950/10 border border-brand-500/10 text-xs font-semibold focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold text-brand-500 uppercase mb-1">Category Designation</label>
+                  <select id="prodCategorySelect" required class="w-full px-3 py-2 rounded-lg bg-brand-50/30 dark:bg-amber-950/10 border border-brand-500/10 text-xs font-semibold focus:outline-none">
+                    <!-- Loaded dynamically -->
+                  </select>
+                </div>
+                <div class="flex items-center h-full pt-4">
+                  <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" id="prodIsHot" class="rounded border-brand-500/20 text-brand-accent focus:ring-brand-accent h-4 w-4">
+                    <span class="text-xs font-bold text-brand-700 dark:text-gray-300">Highlight as Featured Deal</span>
+                  </label>
+                </div>
+                <div class="md:col-span-2">
+                  <label class="block text-[10px] font-bold text-brand-500 uppercase mb-1">Display Bouquet Image URL</label>
+                  <input type="url" id="prodImage" required class="w-full px-3 py-2 rounded-lg bg-brand-50/30 dark:bg-amber-950/10 border border-brand-500/10 text-xs focus:outline-none">
+                </div>
+                <div class="md:col-span-2">
+                  <label class="block text-[10px] font-bold text-brand-500 uppercase mb-1">Arrangement Specific details</label>
+                  <textarea id="prodDetails" required rows="3" class="w-full px-3 py-2 rounded-lg bg-brand-50/30 dark:bg-amber-950/10 border border-brand-500/10 text-xs focus:outline-none"></textarea>
+                </div>
+                <div class="md:col-span-2 flex justify-end gap-3 pt-2">
+                  <button type="button" onclick="closeProductForm()" class="px-4 py-2 border border-brand-500/20 rounded-lg text-xs font-bold hover:bg-brand-50 dark:hover:bg-amber-950/10">Cancel</button>
+                  <button type="submit" class="px-5 py-2 bg-brand-accent hover:bg-yellow-600 text-white text-xs font-bold rounded-lg">Save Arrangement</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Product Table -->
+            <div class="bg-white dark:bg-darkcard rounded-2xl border border-brand-500/10 overflow-hidden shadow-sm">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="bg-brand-50/50 dark:bg-amber-950/10 border-b border-brand-500/10 text-[10px] font-bold uppercase tracking-wider text-brand-500">
+                      <th class="p-4">Bouquet arrangement details</th>
+                      <th class="p-4">Category</th>
+                      <th class="p-4">Price Unit</th>
+                      <th class="p-4">Hot Status</th>
+                      <th class="p-4 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminProductsList" class="divide-y divide-brand-500/5 text-xs font-semibold">
+                    <!-- Dynamic product table list inside -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: CATEGORIES WORKSPACE -->
+          <div id="panel-categoriesTab" class="space-y-6 hidden">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-serif font-black">Boutique Categories</h3>
+              <button onclick="openCategoryForm()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs tracking-wider uppercase px-4 py-2.5 rounded-xl">
+                <i class="fa-solid fa-plus mr-1.5"></i> Insert Category
+              </button>
+            </div>
+
+            <!-- Category Form Inline Box -->
+            <div id="categoryFormContainer" class="hidden bg-white dark:bg-darkcard p-6 rounded-[2rem] border border-brand-500/10 shadow-lg space-y-4">
+              <h4 id="categoryFormTitle" class="text-lg font-serif font-bold">Establish New Category</h4>
+              <form id="categoryForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="hidden" id="editCategoryId">
+                <div>
+                  <label class="block text-[10px] font-bold text-brand-500 uppercase mb-1">Category Code/Slug</label>
+                  <input type="text" id="catSlug" placeholder="e.g. smart-watches" required class="w-full px-3 py-2 rounded-lg bg-brand-50/30 dark:bg-amber-950/10 border border-brand-500/10 text-xs focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold text-brand-500 uppercase mb-1">Display Label</label>
+                  <input type="text" id="catName" placeholder="e.g. Smart Watches" required class="w-full px-3 py-2 rounded-lg bg-brand-50/30 dark:bg-amber-950/10 border border-brand-500/10 text-xs focus:outline-none">
+                </div>
+                <div class="md:col-span-2 flex justify-end gap-3 pt-2">
+                  <button type="button" onclick="closeCategoryForm()" class="px-4 py-2 border border-brand-500/20 rounded-lg text-xs font-bold hover:bg-brand-50 dark:hover:bg-amber-950/10">Cancel</button>
+                  <button type="submit" class="px-5 py-2 bg-brand-accent hover:bg-yellow-600 text-white text-xs font-bold rounded-lg">Save Category</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Categories Table -->
+            <div class="bg-white dark:bg-darkcard rounded-2xl border border-brand-500/10 overflow-hidden shadow-sm">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="bg-brand-50/50 dark:bg-amber-950/10 border-b border-brand-500/10 text-[10px] font-bold uppercase tracking-wider text-brand-500">
+                      <th class="p-4">Category Display label</th>
+                      <th class="p-4">Code Slug ID</th>
+                      <th class="p-4 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminCategoriesList" class="divide-y divide-brand-500/5 text-xs font-semibold">
+                    <!-- Dynamic categories lists inside -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: SLIDER BANNER WORKSPACE -->
+          <div id="panel-bannersTab" class="space-y-6 hidden">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-serif font-black">Slider Promotional Banners</h3>
+              <button onclick="openBannerForm()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs tracking-wider uppercase px-4 py-2.5 rounded-xl">
+                <i class="fa-solid fa-plus mr-1.5"></i> Insert Slider
+              </button>
+            </div>
+
+            <!-- Slider Form container -->
+            <div id="bannerFormContainer" class="hidden bg-white dark:bg-darkcard p-6 rounded-[2rem] border border-brand-500/10 shadow-lg space-y-4">
+              <h4 id="bannerFormTitle" class="text-lg font-serif font-bold">Configure Banner Slide</h4>
+              <form id="bannerForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="hidden" id="editBannerId">
+                <div>
+                  <label class="block text-[10px] font-bold text-brand-500 uppercase mb-1">Banner Large Title</label>
+                  <input type="text" id="banTitle" required class="w-full px-3 py-2 rounded-lg bg-brand-50/30 dark:bg-amber-950/10 border border-brand-500/10 text-xs focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold text-brand-500 uppercase mb-1">Image URL</label>
+                  <input type="url" id="banImage" required class="w-full px-3 py-2 rounded-lg bg-brand-50/30 dark:bg-amber-950/10 border border-brand-500/10 text-xs focus:outline-none">
+                </div>
+                <div class="md:col-span-2">
+                  <label class="block text-[10px] font-bold text-brand-500 uppercase mb-1">Secondary description lines</label>
+                  <textarea id="banDetails" required rows="2" class="w-full px-3 py-2 rounded-lg bg-brand-50/30 dark:bg-amber-950/10 border border-brand-500/10 text-xs focus:outline-none"></textarea>
+                </div>
+                <div class="md:col-span-2 flex justify-end gap-3 pt-2">
+                  <button type="button" onclick="closeBannerForm()" class="px-4 py-2 border border-brand-500/20 rounded-lg text-xs font-bold hover:bg-brand-50 dark:hover:bg-amber-950/10">Cancel</button>
+                  <button type="submit" class="px-5 py-2 bg-brand-accent hover:bg-yellow-600 text-white text-xs font-bold rounded-lg">Save Slide</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="bg-white dark:bg-darkcard rounded-2xl border border-brand-500/10 overflow-hidden shadow-sm">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="bg-brand-50/50 dark:bg-amber-950/10 border-b border-brand-500/10 text-[10px] font-bold uppercase tracking-wider text-brand-500">
+                      <th class="p-4">Slide Preview</th>
+                      <th class="p-4">Title</th>
+                      <th class="p-4 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminBannersList" class="divide-y divide-brand-500/5 text-xs font-semibold">
+                    <!-- Dynamic banners lists inside -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 4: STYLING & SETTINGS -->
+          <div id="panel-settingsTab" class="space-y-6 hidden">
+            <div>
+              <h3 class="text-xl font-serif font-black">Workshop Core Branding Settings</h3>
+              <p class="text-xs text-gray-400 mt-1">Customize visual themes, logo typography, support channel configurations globally.</p>
+            </div>
+
+            <div class="bg-white dark:bg-darkcard p-6 rounded-[2.5rem] border border-brand-500/10 shadow-lg space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Support link -->
+                <div class="md:col-span-2">
+                  <label class="block text-[10px] font-black uppercase tracking-wider text-green-500 mb-1.5">24/7 Support Channel Link</label>
+                  <input type="url" id="configSupportLink" class="w-full px-3 py-2.5 rounded-lg bg-brand-50/30 dark:bg-amber-950/10 border border-brand-500/10 text-xs font-semibold text-green-500 focus:outline-none" placeholder="https://chat.whatsapp.com/...">
+                </div>
+                <!-- Phone -->
+                <div>
+                  <label class="block text-[10px] font-bold text-brand-500 uppercase mb-1.5">Admin WhatsApp Contact (no "+" or spaces)</label>
+                  <input type="text" id="configPhone" class="w-full px-3 py-2.5 rounded-lg bg-brand-50/30 dark:bg-amber-950/10 border border-brand-500/10 text-xs focus:outline-none" placeholder="8801700000000">
+                </div>
+                <!-- Currency -->
+                <div>
+                  <label class="block text-[10px] font-bold text-brand-500 uppercase mb-1.5">Currency symbol</label>
+                  <input type="text" id="configCurrency" class="w-full px-3 py-2.5 rounded-lg bg-brand-50/30 dark:bg-amber-950/10 border border-brand-500/10 text-xs focus:outline-none" placeholder="$">
+                </div>
+                <!-- Brand Accent Color -->
+                <div>
+                  <label class="block text-[10px] font-bold text-brand-500 uppercase mb-1.5">Primary Branding Highlight color</label>
+                  <div class="flex gap-2">
+                    <input type="color" id="configBrandColor" oninput="document.getElementById('configBrandColorText').value = this.value" class="w-10 h-10 rounded border-0 p-0 cursor-pointer bg-transparent">
+                    <input type="text" id="configBrandColorText" oninput="document.getElementById('configBrandColor').value = this.value" class="w-full px-3 py-2 rounded-lg bg-brand-50/30 dark:bg-amber-950/10 border border-brand-500/10 text-xs focus:outline-none" placeholder="#8B5E3C">
+                  </div>
+                </div>
+                <!-- Fonts -->
+                <div>
+                  <label class="block text-[10px] font-bold text-brand-500 uppercase mb-1.5">Branding Letter Font typography</label>
+                  <select id="configFont" class="w-full px-3 py-2.5 rounded-lg bg-brand-50/30 dark:bg-amber-950/10 border border-brand-500/10 text-xs focus:outline-none">
+                    <option value="Poppins">Poppins (Sleek Rounded)</option>
+                    <option value="Playfair Display">Playfair Display (Premium Luxury Serif)</option>
+                    <option value="Plus Jakarta Sans">Plus Jakarta Sans (Modern Clean)</option>
+                    <option value="Inter">Inter (Classic UI Style)</option>
+                  </select>
+                </div>
+                <!-- Logo Custom text -->
+                <div>
+                  <label class="block text-[10px] font-bold text-brand-500 uppercase mb-1.5">Logo Custom text title</label>
+                  <input type="text" id="configLogoText" class="w-full px-3 py-2.5 rounded-lg bg-brand-50/30 dark:bg-amber-950/10 border border-brand-500/10 text-xs focus:outline-none" placeholder="ShopWave">
+                </div>
+                <!-- Custom Logo Image -->
+                <div>
+                  <label class="block text-[10px] font-bold text-brand-500 uppercase mb-1.5">Custom Logo Image URL (Optional)</label>
+                  <input type="url" id="configLogoImg" class="w-full px-3 py-2.5 rounded-lg bg-brand-50/30 dark:bg-amber-950/10 border border-brand-500/10 text-xs focus:outline-none" placeholder="https://domain.com/logo.png">
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-brand-500/10 flex justify-end">
+                <button onclick="saveConfigurations()" class="bg-brand-accent hover:bg-yellow-600 text-white font-bold text-xs tracking-wider uppercase px-6 py-2.5 rounded-xl shadow-md">
+                  <i class="fa-solid fa-floppy-disk mr-1.5"></i> Save Configurations
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast Notification Container overlay -->
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-[100] space-y-3 pointer-events-none"></div>
+
+  <!-- ================= FIREBASE CLOUD STREAM ENGINE ================= -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyChgc1mYObgRsiH_LvwW6eJmlVhl3FiM3I",
+      authDomain: "shopwave-ecommerce.firebaseapp.com",
+      databaseURL: "https://shopwave-ecommerce-default-rtdb.firebaseio.com",
+      projectId: "shopwave-ecommerce",
+      storageBucket: "shopwave-ecommerce.firebasestorage.app",
+      messagingSenderId: "431717442378",
+      appId: "1:431717442378:web:e7f8657a86e42577da17b3",
+      measurementId: "G-P2WNHYRQXZ"
+    };
+
+    // Beautiful default premium floristry arrays fallbacks
+    const defaultBanners = [
+      { id: 'b1', title: 'The Royal Rose Bouquet Collection', details: 'Artisanal handpicked premium red & cream roses carefully arranged to captivate hearts.', imageUrl: 'https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=1600&q=80' },
+      { id: 'b2', title: 'Curated Wedding & Anniversary Masterpieces', details: 'Make grand life events timeless with pristine white hydrangea & orchids selections.', imageUrl: 'https://images.unsplash.com/photo-1588612143093-fa15cc475d86?auto=format&fit=crop&w=1600&q=80' }
+    ];
+
+    const defaultCategories = [
+      { id: 'cat1', slug: 'roses', name: 'Premium Roses' },
+      { id: 'cat2', slug: 'wedding', name: 'Wedding Bouquets' },
+      { id: 'cat3', slug: 'gifts', name: 'Gift Hampers' }
+    ];
+
+    const defaultProducts = [
+      { id: 'p1', name: 'Luxury Red Rose Collection', price: 29.00, category: 'roses', isHot: true, details: 'Symmetrical arrangement of long-stem red roses in soft silk linen wrapping.', imageUrl: 'https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=600&q=80' },
+      { id: 'p2', name: 'Fluffy White Hydrangeas', price: 25.00, category: 'wedding', isHot: true, details: 'Heavenly white hydrangeas bound securely with brown craft cords.', imageUrl: 'https://images.unsplash.com/photo-1588612143093-fa15cc475d86?auto=format&fit=crop&w=600&q=80' },
+      { id: 'p3', name: 'Golden Orchid Deluxe', price: 45.00, category: 'gifts', isHot: false, details: 'Exotic phalaenopsis orchids layered with gold foliage accents.', imageUrl: 'https://images.unsplash.com/photo-1567696911980-2eed69a41de3?auto=format&fit=crop&w=600&q=80' },
+      { id: 'p4', name: 'Imperial Jasmine Basket', price: 18.00, category: 'gifts', isHot: false, details: 'Highly fragrant jasmines harvested and arranged in elegant wood basket frames.', imageUrl: 'https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=600&q=80' }
+    ];
+
+    const isFirebaseConfigured = () => {
+      return firebaseConfig.apiKey && firebaseConfig.apiKey !== "YOUR_API_KEY_HERE";
+    };
+
+    let db;
+    let products = [];
+    let categories = [];
+    let banners = [];
+    let storePhone = "8801700000000";
+    let storeCurrency = "$";
+    let supportLink = "https://chat.whatsapp.com/";
+    let activeCategorySlug = ""; 
+    let selectedCategoryFilter = ""; 
+
+    const dbController = {
+      async init() {
+        if (isFirebaseConfigured()) {
+          try {
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            document.getElementById('dbModeText').innerText = "Live Cloud Firestore Sync Connected.";
+            this.syncRealtime();
+          } catch (e) {
+            console.error("Firebase connection blocked. Fallback to LocalStorage:", e);
+            this.setupFallback();
+          }
+        } else {
+          this.setupFallback();
+        }
+      },
+
+      setupFallback() {
+        document.getElementById('dbModeText').innerText = "Active LocalStorage Fallback.";
+        this.loadLocal();
+      },
+
+      loadLocal() {
+        let localProds = localStorage.getItem('sw_products');
+        let localCats = localStorage.getItem('sw_categories');
+        let localBans = localStorage.getItem('sw_banners');
+        let localPhone = localStorage.getItem('sw_phone');
+        let localCurrency = localStorage.getItem('sw_currency');
+        let localSupport = localStorage.getItem('sw_support_link');
+
+        products = localProds ? JSON.parse(localProds) : [...defaultProducts];
+        categories = localCats ? JSON.parse(localCats) : [...defaultCategories];
+        banners = localBans ? JSON.parse(localBans) : [...defaultBanners];
+        if (localPhone) storePhone = localPhone;
+        if (localCurrency) storeCurrency = localCurrency;
+        if (localSupport) supportLink = localSupport;
+
+        if (!localProds) localStorage.setItem('sw_products', JSON.stringify(products));
+        if (!localCats) localStorage.setItem('sw_categories', JSON.stringify(categories));
+        if (!localBans) localStorage.setItem('sw_banners', JSON.stringify(banners));
+
+        updateStorefrontDOM();
+        updateAdminTables();
+      },
+
+      syncRealtime() {
+        onSnapshot(collection(db, "products"), (snap) => {
+          let items = [];
+          snap.forEach(doc => items.push({ id: doc.id, ...doc.data() }));
+          if (items.length === 0) this.seedFirestore("products", defaultProducts);
+          else { products = items; updateStorefrontDOM(); updateAdminTables(); }
+        }, (error) => {
+          console.warn("Products stream blocked, running LocalStorage fallback.");
+          this.setupFallback();
+        });
+
+        onSnapshot(collection(db, "categories"), (snap) => {
+          let items = [];
+          snap.forEach(doc => items.push({ id: doc.id, ...doc.data() }));
+          if (items.length === 0) this.seedFirestore("categories", defaultCategories);
+          else { categories = items; updateStorefrontDOM(); updateAdminTables(); }
+        }, (error) => {
+          console.warn("Categories stream blocked.");
+          this.setupFallback();
+        });
+
+        onSnapshot(collection(db, "banners"), (snap) => {
+          let items = [];
+          snap.forEach(doc => items.push({ id: doc.id, ...doc.data() }));
+          if (items.length === 0) this.seedFirestore("banners", defaultBanners);
+          else { banners = items; updateStorefrontDOM(); updateAdminTables(); }
+        }, (error) => {
+          console.warn("Banners stream blocked.");
+          this.setupFallback();
+        });
+
+        onSnapshot(collection(db, "config"), (snap) => {
+          snap.forEach(doc => {
+            if (doc.id === "global") {
+              const data = doc.data();
+              if (data.phone) storePhone = data.phone;
+              if (data.currency) storeCurrency = data.currency;
+              if (data.supportLink) supportLink = data.supportLink;
+              applyThemeBranding(data);
+              updateStorefrontDOM();
+              updateAdminTables();
+            }
+          });
+        }, (error) => {
+          console.warn("Config stream blocked.");
+          this.setupFallback();
+        });
+      },
+
+      async seedFirestore(col, defaultArr) {
+        try {
+          for (const item of defaultArr) {
+            const { id, ...data } = item;
+            await setDoc(doc(db, col, id), data);
+          }
+        } catch (e) {
+          console.error("Firestore seeding failure:", e);
+        }
+      },
+
+      async saveProduct(id, productData) {
+        if (isFirebaseConfigured() && db) {
+          try {
+            if (id) await setDoc(doc(db, "products", id), productData);
+            else await addDoc(collection(db, "products"), productData);
+          } catch (e) {
+            this.saveProductLocal(id, productData);
+          }
+        } else {
+          this.saveProductLocal(id, productData);
+        }
+      },
+
+      saveProductLocal(id, productData) {
+        if (id) {
+          const idx = products.findIndex(p => p.id === id);
+          if (idx !== -1) products[idx] = { id, ...productData };
+        } else {
+          products.push({ id: 'p_' + Date.now(), ...productData });
+        }
+        localStorage.setItem('sw_products', JSON.stringify(products));
+        this.loadLocal();
+      },
+
+      async deleteProduct(id) {
+        if (isFirebaseConfigured() && db) {
+          try {
+            await deleteDoc(doc(db, "products", id));
+          } catch (e) {
+            this.deleteProductLocal(id);
+          }
+        } else {
+          this.deleteProductLocal(id);
+        }
+      },
+
+      deleteProductLocal(id) {
+        products = products.filter(p => p.id !== id);
+        localStorage.setItem('sw_products', JSON.stringify(products));
+        this.loadLocal();
+      },
+
+      async saveCategory(id, catData) {
+        if (isFirebaseConfigured() && db) {
+          try {
+            if (id) await setDoc(doc(db, "categories", id), catData);
+            else await addDoc(collection(db, "categories"), catData);
+          } catch (e) {
+            this.saveCategoryLocal(id, catData);
+          }
+        } else {
+          this.saveCategoryLocal(id, catData);
+        }
+      },
+
+      saveCategoryLocal(id, catData) {
+        if (id) {
+          const idx = categories.findIndex(c => c.id === id);
+          if (idx !== -1) categories[idx] = { id, ...catData };
+        } else {
+          categories.push({ id: 'cat_' + Date.now(), ...catData });
+        }
+        localStorage.setItem('sw_categories', JSON.stringify(categories));
+        this.loadLocal();
+      },
+
+      async deleteCategory(id) {
+        if (isFirebaseConfigured() && db) {
+          try {
+            await deleteDoc(doc(db, "categories", id));
+          } catch (e) {
+            this.deleteCategoryLocal(id);
+          }
+        } else {
+          this.deleteCategoryLocal(id);
+        }
+      },
+
+      deleteCategoryLocal(id) {
+        categories = categories.filter(c => c.id !== id);
+        localStorage.setItem('sw_categories', JSON.stringify(categories));
+        this.loadLocal();
+      },
+
+      async saveBanner(id, bannerData) {
+        if (isFirebaseConfigured() && db) {
+          try {
+            if (id) await setDoc(doc(db, "banners", id), bannerData);
+            else await addDoc(collection(db, "banners"), bannerData);
+          } catch (e) {
+            this.saveBannerLocal(id, bannerData);
+          }
+        } else {
+          this.saveBannerLocal(id, bannerData);
+        }
+      },
+
+      saveBannerLocal(id, bannerData) {
+        if (id) {
+          const idx = banners.findIndex(b => b.id === id);
+          if (idx !== -1) banners[idx] = { id, ...bannerData };
+        } else {
+          banners.push({ id: 'b_' + Date.now(), ...bannerData });
+        }
+        localStorage.setItem('sw_banners', JSON.stringify(banners));
+        this.loadLocal();
+      },
+
+      async deleteBanner(id) {
+        if (isFirebaseConfigured() && db) {
+          try {
+            await deleteDoc(doc(db, "banners", id));
+          } catch (e) {
+            this.deleteBannerLocal(id);
+          }
+        } else {
+          this.deleteBannerLocal(id);
+        }
+      },
+
+      deleteBannerLocal(id) {
+        banners = banners.filter(b => b.id !== id);
+        localStorage.setItem('sw_banners', JSON.stringify(banners));
+        this.loadLocal();
+      },
+
+      async saveConfig(configObj) {
+        if (isFirebaseConfigured() && db) {
+          try {
+            await setDoc(doc(db, "config", "global"), configObj);
+          } catch (e) {
+            this.saveConfigLocal(configObj);
+          }
+        } else {
+          this.saveConfigLocal(configObj);
+        }
+      },
+
+      saveConfigLocal(configObj) {
+        storePhone = configObj.phone || storePhone;
+        storeCurrency = configObj.currency || storeCurrency;
+        supportLink = configObj.supportLink || supportLink;
+        localStorage.setItem('sw_phone', storePhone);
+        localStorage.setItem('sw_currency', storeCurrency);
+        localStorage.setItem('sw_support_link', supportLink);
+        localStorage.setItem('sw_branding', JSON.stringify(configObj));
+        applyThemeBranding(configObj);
+        this.loadLocal();
+      }
+    };
+
+    dbController.init();
+    window.dbController = dbController;
+
+    // ==========================================
+    // DYNAMIC GLOBAL STYLING / BRANDING
+    // ==========================================
+    function applyThemeBranding(config) {
+      const brandColor = config.brandColor || "#8B5E3C";
+      const fontFamily = config.fontFamily || "Poppins";
+      const logoText = config.logoText || "ShopWave";
+      const logoImg = config.logoImg || "";
+
+      let customStyleNode = document.getElementById('shopwave-custom-branding');
+      if (!customStyleNode) {
+        customStyleNode = document.createElement('style');
+        customStyleNode.id = 'shopwave-custom-branding';
+        document.head.appendChild(customStyleNode);
+      }
+
+      const hexToRgb = (hex) => {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16)
+        } : { r: 139, g: 94, b: 60 };
+      };
+      const rgb = hexToRgb(brandColor);
+      const darkColor = `rgb(${Math.max(0, rgb.r - 20)}, ${Math.max(0, rgb.g - 20)}, ${Math.max(0, rgb.b - 20)})`;
+
+      customStyleNode.innerHTML = `
+        :root {
+          --primary-flower: ${brandColor};
+          --brand-hover: ${darkColor};
+        }
+        body { font-family: '${fontFamily}', sans-serif !important; }
+        .bg-brand-500 { background-color: var(--primary-flower) !important; }
+        .bg-brand-600 { background-color: var(--brand-hover) !important; }
+        .hover\\:bg-brand-600:hover { background-color: var(--brand-hover) !important; }
+        .hover\\:bg-brand-500:hover { background-color: var(--primary-flower) !important; }
+        .text-brand-500 { color: var(--primary-flower) !important; }
+        .border-brand-500 { border-color: var(--primary-flower) !important; }
+        .from-brand-600 { --tw-gradient-from: var(--brand-hover) !important; }
+        .to-emerald-400 { --tw-gradient-to: var(--primary-flower) !important; }
+      `;
+
+      let fontLinkNode = document.getElementById('dynamic-font-node');
+      if (!fontLinkNode) {
+        fontLinkNode = document.createElement('link');
+        fontLinkNode.id = 'dynamic-font-node';
+        fontLinkNode.rel = 'stylesheet';
+        document.head.appendChild(fontLinkNode);
+      }
+      fontLinkNode.href = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, "+")}:wght@300;400;500;600;700;800;900&display=swap`;
+
+      document.querySelectorAll('.shopwave-logo-text').forEach(node => { node.innerText = logoText; });
+
+      document.querySelectorAll('.shopwave-logo-icon').forEach(node => {
+        if (logoImg) node.innerHTML = `<img src="${logoImg}" class="w-10 h-10 object-cover rounded-xl">`;
+        else node.innerHTML = `<i class="fa-solid fa-seedling text-lg"></i>`;
+      });
+
+      if (document.getElementById('configBrandColor')) {
+        document.getElementById('configBrandColor').value = brandColor;
+        document.getElementById('configBrandColorText').value = brandColor;
+        document.getElementById('configFont').value = fontFamily;
+        document.getElementById('configLogoText').value = logoText;
+        document.getElementById('configLogoImg').value = logoImg;
+        document.getElementById('configSupportLink').value = supportLink;
+      }
+    }
+
+    // ==========================================
+    // RENDER INTERFACES
+    // ==========================================
+    let activeSlide = 0;
+    let mainSwiper = null;
+
+    function updateStorefrontDOM() {
+      // 1. Horizontal Category Chips in Home
+      const chipsContainer = document.getElementById('homeCategoryChips');
+      chipsContainer.innerHTML = categories.map(c => `
+        <button onclick="navigateTo('category-page', '${c.slug}')" class="px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 shrink-0 bg-brand-50/70 dark:bg-amber-950/20 text-brand-500 border border-brand-500/10 hover:border-brand-accent">
+          ${c.name}
+        </button>
+      `).join('');
+
+      // 2. Popular Varieties horizontal strip (Icons)
+      const popularContainer = document.getElementById('popularFlowerPills');
+      popularContainer.innerHTML = categories.map(c => `
+        <button onclick="navigateTo('category-page', '${c.slug}')" class="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold bg-white dark:bg-darkcard border border-brand-500/10 shadow-sm hover:scale-105 active:scale-95 transition-all">
+          <span class="text-brand-accent">✿</span>
+          <span>${c.name}</span>
+        </button>
+      `).join('');
+
+      // 3. Hero Promo Banner populate
+      const sWrapper = document.getElementById('sliderWrapper');
+      if (banners.length === 0) {
+        sWrapper.innerHTML = `
+          <div class="swiper-slide h-full flex items-center justify-center p-6 text-center">
+            <h3 class="text-xl font-serif font-black">No active sliders configured.</h3>
+          </div>
+        `;
+      } else {
+        sWrapper.innerHTML = banners.map(b => `
+          <div class="swiper-slide grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-6">
+            <div class="space-y-4">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-black bg-brand-accent/20 text-brand-accent border border-brand-accent/20 uppercase tracking-widest">
+                🌹 Spotlight Bouquet
+              </span>
+              <h2 class="text-3xl md:text-5xl font-serif font-black leading-tight text-gray-900 dark:text-white">
+                ${b.title}
+              </h2>
+              <p class="text-xs text-brand-700/70 dark:text-gray-400 font-medium leading-relaxed max-w-sm">
+                ${b.details}
+              </p>
+              <div class="pt-2 flex gap-3">
+                <button onclick="navigateTo('all-store')" class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-6 py-3.5 rounded-xl shadow-lg transition-transform active:scale-95">
+                  Explore Curated Boutique
+                </button>
+              </div>
+            </div>
+            <div class="relative flex justify-center">
+              <div class="w-72 h-72 md:w-80 md:h-80 rounded-full overflow-hidden bg-brand-50 border-4 border-brand-accent shadow-2xl relative z-10 floating-img">
+                <img src="${b.imageUrl}" class="w-full h-full object-cover">
+              </div>
+              <div class="absolute -bottom-8 w-60 h-8 bg-black/10 dark:bg-black/40 blur-xl rounded-full"></div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Re-init Swiper
+      if (mainSwiper) mainSwiper.destroy();
+      mainSwiper = new Swiper('.heroSwiper', {
+        loop: true,
+        autoplay: { delay: 6000 },
+        pagination: { el: '.swiper-pagination', clickable: true },
+        effect: 'fade',
+        fadeEffect: { crossFade: true }
+      });
+
+      // 4. Hot deals / Glass cards
+      const hotGrid = document.getElementById('hotItemsGrid');
+      const hotProducts = products.filter(p => p.isHot);
+      if (hotProducts.length === 0) {
+        hotGrid.innerHTML = `<div class="col-span-full text-center py-8 text-xs text-gray-400">Currently no active Signature deals.</div>`;
+      } else {
+        hotGrid.innerHTML = hotProducts.map(p => renderGlassCardTemplate(p)).join('');
+      }
+
+      // 5. Main Collections list (Home)
+      const previewGrid = document.getElementById('productsGrid');
+      const previewItems = products.slice(0, 6);
+      if (previewItems.length === 0) {
+        previewGrid.innerHTML = `<div class="col-span-full py-10 text-center text-gray-400 text-xs">No boutique goods created.</div>`;
+      } else {
+        previewGrid.innerHTML = previewItems.map(p => renderStandardCardTemplate(p)).join('');
+      }
+
+      // 6. All-Store live filter sync
+      renderAllStorePage();
+
+      // 7. If Category page open, sync live
+      if (activeCategorySlug !== "") {
+        renderCategoryPage(activeCategorySlug);
+      }
+
+      // Global elements values
+      document.getElementById('footerPhoneDisplay').innerText = `+${storePhone}`;
+      AOS.init({ duration: 800, once: true });
+    }
+
+    // Glassmorphic circular dynamic card
+    function renderGlassCardTemplate(p) {
+      const isWish = isItemWishlisted(p.id) ? 'fa-solid text-red-500' : 'fa-regular';
+      return `
+        <div class="glass-card rounded-[2.5rem] p-6 shadow-xl border border-brand-500/5 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between overflow-hidden relative">
+          <!-- Top row icons -->
+          <div class="flex items-center justify-between z-10 relative">
+            <button onclick="toggleWishlistInline('${p.id}')" class="w-8 h-8 rounded-full bg-white/80 dark:bg-darkcard/80 backdrop-blur shadow flex items-center justify-center hover:scale-110 active:scale-95 transition-all text-sm">
+              <i class="${isWish} fa-heart"></i>
+            </button>
+            <span class="bg-red-500 text-white text-[9px] font-black px-2.5 py-1 rounded-full shadow-sm">
+              -15% OFF
+            </span>
+          </div>
+
+          <!-- Large Floating Circular Image -->
+          <div class="relative w-44 h-44 mx-auto my-3 rounded-full overflow-hidden border-4 border-white/60 dark:border-amber-950/20 shadow-lg cursor-pointer group" onclick="openProductDetail('${p.id}')">
+            <img src="${p.imageUrl}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+          </div>
+
+          <!-- Content Block -->
+          <div class="space-y-2 text-center mt-2">
+            <h3 class="font-serif font-black text-base truncate cursor-pointer" onclick="openProductDetail('${p.id}')">${p.name}</h3>
+            <div class="flex items-center justify-center gap-1">
+              <div class="text-amber-400 text-[10px] flex">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <span class="text-[9px] font-bold text-gray-400">4.9</span>
+            </div>
+            <div class="flex items-center justify-center gap-2">
+              <span class="text-brand-accent price-font font-black text-base">${storeCurrency}${parseFloat(p.price || 0).toFixed(2)}</span>
+              <span class="text-xs text-gray-400 line-through price-font font-medium">${storeCurrency}${parseFloat(p.price * 1.25 || 0).toFixed(2)}</span>
+            </div>
+          </div>
+
+          <!-- Add to Cart CTA with Micro interactions -->
+          <button onclick="addToBasket('${p.id}')" class="w-full mt-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-brand-accent hover:from-brand-500 hover:to-yellow-500 text-white font-bold text-xs tracking-wider uppercase transition-all shadow-md active:scale-95">
+            + Add To Cart
+          </button>
+        </div>
+      `;
+    }
+
+    // Standard grid card
+    function renderStandardCardTemplate(p) {
+      const isWish = isItemWishlisted(p.id) ? 'fa-solid text-red-500' : 'fa-regular';
+      return `
+        <div class="glass-card rounded-[2.5rem] border border-brand-500/5 hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col justify-between group">
+          <div class="relative pt-[80%] bg-brand-50/20 dark:bg-amber-950/10 overflow-hidden">
+            <img src="${p.imageUrl}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openProductDetail('${p.id}')">
+            <button onclick="toggleWishlistInline('${p.id}')" class="absolute top-4 left-4 z-20 w-8 h-8 rounded-full bg-white/80 dark:bg-darkcard/80 backdrop-blur shadow flex items-center justify-center hover:scale-110 active:scale-95 transition-all text-sm">
+              <i class="${isWish} fa-heart"></i>
+            </button>
+            ${p.isHot ? `<span class="absolute top-4 right-4 bg-brand-accent text-white text-[9px] font-black px-2.5 py-1 rounded-full shadow"><i class="fa-solid fa-fire animate-bounce"></i> Signature Deal</span>` : ''}
+          </div>
+          <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex items-start justify-between gap-2">
+                <h3 class="font-serif font-bold text-base hover:text-brand-accent cursor-pointer truncate" onclick="openProductDetail('${p.id}')">${p.name}</h3>
+                <span class="text-brand-accent price-font font-black text-base shrink-0">${storeCurrency}${parseFloat(p.price || 0).toFixed(2)}</span>
+              </div>
+              <p class="text-xs text-brand-700/60 dark:text-gray-400 line-clamp-2 leading-relaxed mt-1">${p.details}</p>
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="openProductDetail('${p.id}')" class="py-2 rounded-lg border border-brand-500/20 text-[10px] font-bold tracking-wider uppercase hover:bg-brand-50 dark:hover:bg-amber-950/10">Details</button>
+              <button onclick="addToBasket('${p.id}')" class="py-2 rounded-lg bg-brand-500 hover:bg-brand-600 text-white text-[10px] font-bold tracking-wider uppercase shadow-md">+ Cart</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAllStorePage() {
+      const filterPillsContainer = document.getElementById('storeCategoryFilterList');
+      filterPillsContainer.innerHTML = `
+        <button onclick="filterAllStoreByCategory('')" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${selectedCategoryFilter === "" ? 'bg-brand-500 text-white shadow-md' : 'bg-brand-50/50 dark:bg-amber-950/10 hover:bg-brand-50' }">
+          ● All Arrangements
+        </button>
+      ` + categories.map(c => `
+        <button onclick="filterAllStoreByCategory('${c.slug}')" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${selectedCategoryFilter === c.slug ? 'bg-brand-500 text-white shadow-md' : 'bg-brand-50/50 dark:bg-amber-950/10 hover:bg-brand-50' }">
+          ✿ ${c.name}
+        </button>
+      `).join('');
+
+      const sKeyword = document.getElementById('storeSearchInput').value.toLowerCase();
+      const filtered = products.filter(p => {
+        const matchesSearch = p.name.toLowerCase().includes(sKeyword) || p.details.toLowerCase().includes(sKeyword);
+        const matchesCategory = selectedCategoryFilter === "" || p.category === selectedCategoryFilter;
+        return matchesSearch && matchesCategory;
+      });
+
+      document.getElementById('storeProductsCount').innerText = `${filtered.length} boutique items available`;
+
+      const storeGrid = document.getElementById('storeFullGrid');
+      if (filtered.length === 0) {
+        storeGrid.innerHTML = `<div class="col-span-full py-16 text-center text-xs text-gray-400">No bouquet arrangements match search filters.</div>`;
+      } else {
+        storeGrid.innerHTML = filtered.map(p => renderGlassCardTemplate(p)).join('');
+      }
+    }
+
+    function renderCategoryPage(categorySlug) {
+      activeCategorySlug = categorySlug;
+      const catObj = categories.find(c => c.slug === categorySlug);
+      if (!catObj) { navigateTo('home'); return; }
+
+      document.getElementById('catPageBreadcrumb').innerText = catObj.name;
+      document.getElementById('catPageTitle').innerText = catObj.name;
+
+      const catProducts = products.filter(p => p.category === categorySlug);
+      document.getElementById('catProductCount').innerText = `${catProducts.length} items`;
+
+      const grid = document.getElementById('catProductsGrid');
+      if (catProducts.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-20 text-center text-gray-400">
+            <i class="fa-solid fa-leaf text-4xl mb-3 text-brand-accent animate-bounce"></i>
+            <h3 class="font-serif font-black text-lg">Category is Empty</h3>
+            <p class="text-xs">No handcrafted bouquets cataloged in this segment yet.</p>
+          </div>
+        `;
+      } else {
+        grid.innerHTML = catProducts.map(p => renderGlassCardTemplate(p)).join('');
+      }
+    }
+
+    // ==========================================
+    // SPA ROUTER CONNECTIVITY
+    // ==========================================
+    window.navigateTo = function(viewId, parameter = null) {
+      document.querySelectorAll('.view-pane').forEach(el => el.classList.add('hidden'));
+      const activePane = document.getElementById(`view-${viewId}`);
+      if (activePane) activePane.classList.remove('hidden');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (viewId === 'category-page' && parameter) {
+        renderCategoryPage(parameter);
+      } else {
+        activeCategorySlug = "";
+      }
+    }
+
+    window.filterAllStoreByCategory = function(categorySlug) {
+      selectedCategoryFilter = categorySlug;
+      navigateTo('all-store');
+      renderAllStorePage();
+    }
+
+    window.openSupportChannel = function() {
+      showToast("Routing to support workshop operator...", "info");
+      setTimeout(() => { window.open(supportLink, '_blank'); }, 800);
+    }
+
+    // ==========================================
+    // BACKEND DASHBOARD SYNC TABLE POPULATORS
+    // ==========================================
+    window.updateAdminTables = function() {
+      document.getElementById('configPhone').value = storePhone;
+      document.getElementById('configCurrency').value = storeCurrency;
+      document.getElementById('configSupportLink').value = supportLink;
+
+      const categorySelect = document.getElementById('prodCategorySelect');
+      categorySelect.innerHTML = categories.map(c => `<option value="${c.slug}">${c.name}</option>`).join('');
+
+      // Products Catalog List Table
+      const pTable = document.getElementById('adminProductsList');
+      if (products.length === 0) {
+        pTable.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-gray-400 text-xs">No catalog items.</td></tr>`;
+      } else {
+        pTable.innerHTML = products.map(p => `
+          <tr class="hover:bg-brand-50/20 dark:hover:bg-amber-950/5 transition-colors">
+            <td class="p-4 flex items-center gap-3">
+              <img src="${p.imageUrl}" class="w-10 h-10 rounded-lg object-cover bg-gray-100">
+              <span class="font-serif font-bold text-gray-900 dark:text-white">${p.name}</span>
+            </td>
+            <td class="p-4 font-bold text-brand-500 text-xs uppercase">${p.category}</td>
+            <td class="p-4 font-bold text-brand-accent price-font">${storeCurrency}${parseFloat(p.price || 0).toFixed(2)}</td>
+            <td class="p-4">${p.isHot ? `<span class="text-[9px] bg-red-500/10 text-red-500 px-2 py-1 rounded font-black uppercase">Signature</span>` : `<span class="text-[9px] text-gray-400 font-bold uppercase">Regular</span>`}</td>
+            <td class="p-4 text-right space-x-2">
+              <button onclick="editProductInline('${p.id}')" class="px-3 py-1.5 text-[10px] bg-amber-500/15 text-amber-600 rounded-lg font-black tracking-wider uppercase">Edit</button>
+              <button onclick="deleteProductInline('${p.id}')" class="px-3 py-1.5 text-[10px] bg-red-500/15 text-red-600 rounded-lg font-black tracking-wider uppercase">Delete</button>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      // Categories Management Table
+      const cTable = document.getElementById('adminCategoriesList');
+      if (categories.length === 0) {
+        cTable.innerHTML = `<tr><td colspan="3" class="p-6 text-center text-gray-400 text-xs">No categories created.</td></tr>`;
+      } else {
+        cTable.innerHTML = categories.map(c => `
+          <tr class="hover:bg-brand-50/20 dark:hover:bg-amber-950/5 transition-colors">
+            <td class="p-4 font-bold text-gray-900 dark:text-white">${c.name}</td>
+            <td class="p-4 font-mono text-xs text-brand-500">${c.slug}</td>
+            <td class="p-4 text-right space-x-2">
+              <button onclick="editCategoryInline('${c.id}')" class="px-3 py-1.5 text-[10px] bg-amber-500/15 text-amber-600 rounded-lg font-black tracking-wider uppercase">Edit</button>
+              <button onclick="deleteCategoryInline('${c.id}')" class="px-3 py-1.5 text-[10px] bg-red-500/15 text-red-600 rounded-lg font-black tracking-wider uppercase">Delete</button>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      // Sliders Promos Table
+      const bTable = document.getElementById('adminBannersList');
+      if (banners.length === 0) {
+        bTable.innerHTML = `<tr><td colspan="3" class="p-6 text-center text-gray-400 text-xs">No slider promos created.</td></tr>`;
+      } else {
+        bTable.innerHTML = banners.map(b => `
+          <tr class="hover:bg-brand-50/20 dark:hover:bg-amber-950/5 transition-colors">
+            <td class="p-4"><img src="${b.imageUrl}" class="w-16 h-10 rounded object-cover"></td>
+            <td class="p-4 font-serif font-bold text-gray-900 dark:text-white text-xs">${b.title}</td>
+            <td class="p-4 text-right space-x-2">
+              <button onclick="editBannerInline('${b.id}')" class="px-3 py-1.5 text-[10px] bg-amber-500/15 text-amber-600 rounded-lg font-black tracking-wider uppercase">Edit</button>
+              <button onclick="deleteBannerInline('${b.id}')" class="px-3 py-1.5 text-[10px] bg-red-500/15 text-red-600 rounded-lg font-black tracking-wider uppercase">Delete</button>
+            </td>
+          </tr>
+        `).join('');
+      }
+    };
+
+    // Dashboard save listeners
+    document.getElementById('productForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('editProductId').value;
+      const data = {
+        name: document.getElementById('prodName').value,
+        price: parseFloat(document.getElementById('prodPrice').value),
+        category: document.getElementById('prodCategorySelect').value,
+        isHot: document.getElementById('prodIsHot').checked,
+        imageUrl: document.getElementById('prodImage').value,
+        details: document.getElementById('prodDetails').value
+      };
+      await dbController.saveProduct(id || null, data);
+      showToast("Bouquet arrangement recorded securely.", "success");
+      closeProductForm();
+    });
+
+    document.getElementById('categoryForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('editCategoryId').value;
+      const data = {
+        slug: document.getElementById('catSlug').value.trim().toLowerCase(),
+        name: document.getElementById('catName').value.trim()
+      };
+      await dbController.saveCategory(id || null, data);
+      showToast("Boutique category definitions modified.", "success");
+      closeCategoryForm();
+    });
+
+    document.getElementById('bannerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('editBannerId').value;
+      const data = {
+        title: document.getElementById('banTitle').value,
+        imageUrl: document.getElementById('banImage').value,
+        details: document.getElementById('banDetails').value
+      };
+      await dbController.saveBanner(id || null, data);
+      showToast("Promo slider config stored successfully.", "success");
+      closeBannerForm();
+    });
+
+    // Edit commands mapping
+    window.editProductInline = function(id) {
+      const p = products.find(p => p.id === id);
+      if (!p) return;
+      document.getElementById('editProductId').value = p.id;
+      document.getElementById('prodName').value = p.name;
+      document.getElementById('prodPrice').value = p.price;
+      document.getElementById('prodCategorySelect').value = p.category;
+      document.getElementById('prodIsHot').checked = p.isHot;
+      document.getElementById('prodImage').value = p.imageUrl;
+      document.getElementById('prodDetails').value = p.details;
+      document.getElementById('productFormTitle').innerText = "Modify Bouquet arrangement";
+      document.getElementById('productFormContainer').classList.remove('hidden');
+      switchDashboardTab('productsTab');
+      document.getElementById('adminDashboard').scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.editCategoryInline = function(id) {
+      const c = categories.find(cat => cat.id === id);
+      if (!c) return;
+      document.getElementById('editCategoryId').value = c.id;
+      document.getElementById('catSlug').value = c.slug;
+      document.getElementById('catName').value = c.name;
+      document.getElementById('categoryFormTitle').innerText = "Modify Category parameters";
+      document.getElementById('categoryFormContainer').classList.remove('hidden');
+      switchDashboardTab('categoriesTab');
+      document.getElementById('adminDashboard').scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.editBannerInline = function(id) {
+      const b = banners.find(b => b.id === id);
+      if (!b) return;
+      document.getElementById('editBannerId').value = b.id;
+      document.getElementById('banTitle').value = b.title;
+      document.getElementById('banImage').value = b.imageUrl;
+      document.getElementById('banDetails').value = b.details;
+      document.getElementById('bannerFormTitle').innerText = "Configure Promo Carousel";
+      document.getElementById('bannerFormContainer').classList.remove('hidden');
+      switchDashboardTab('bannersTab');
+      document.getElementById('adminDashboard').scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Inline Deletions
+    window.deleteProductInline = async function(id) {
+      if (confirm("Discard arrangement from inventory?")) {
+        await dbController.deleteProduct(id);
+        showToast("Arrangement discarded.", "info");
+      }
+    }
+    window.deleteCategoryInline = async function(id) {
+      if (confirm("Permanently strip category from directory?")) {
+        await dbController.deleteCategory(id);
+        showToast("Category removed.", "info");
+      }
+    }
+    window.deleteBannerInline = async function(id) {
+      if (confirm("Remove slider showcase?")) {
+        await dbController.deleteBanner(id);
+        showToast("Banner deleted.", "info");
+      }
+    }
+
+    window.saveConfigurations = async function() {
+      const ph = document.getElementById('configPhone').value.trim();
+      const cur = document.getElementById('configCurrency').value.trim();
+      const brandColor = document.getElementById('configBrandColorText').value.trim() || document.getElementById('configBrandColor').value;
+      const fontFamily = document.getElementById('configFont').value;
+      const logoText = document.getElementById('configLogoText').value.trim() || "ShopWave";
+      const logoImg = document.getElementById('configLogoImg').value.trim();
+      const liveSupportLink = document.getElementById('configSupportLink').value.trim();
+
+      if (!ph) { showToast("Invalid terminal connection contact.", "error"); return; }
+      
+      const configObj = {
+        phone: ph,
+        currency: cur || "$",
+        brandColor: brandColor,
+        fontFamily: fontFamily,
+        logoText: logoText,
+        logoImg: logoImg,
+        supportLink: liveSupportLink || "https://chat.whatsapp.com/"
+      };
+
+      await dbController.saveConfig(configObj);
+      showToast("Global workshop settings preserved.", "success");
+    }
+
+    // Exposing functions globally
+    window.updateStorefrontDOM = updateStorefrontDOM;
+    window.getStoreProducts = () => products;
+    window.getStoreCurrencySymbol = () => storeCurrency;
+    window.getStorePhone = () => storePhone;
+  </script>
+
+  <!-- ================= LUXURY APP INTERACTIONS SYSTEM ================= -->
+  <script>
+    // Theme Engine
+    const themeBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeToggleIcon');
+    const htmlNode = document.documentElement;
+
+    if (localStorage.getItem('sw_theme') === 'dark') {
+      htmlNode.classList.add('dark');
+      themeIcon.className = "fa-solid fa-sun";
+    } else {
+      htmlNode.classList.remove('dark');
+      themeIcon.className = "fa-solid fa-moon";
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if (htmlNode.classList.contains('dark')) {
+        htmlNode.classList.remove('dark');
+        themeIcon.className = "fa-solid fa-moon";
+        localStorage.setItem('sw_theme', 'light');
+      } else {
+        htmlNode.classList.add('dark');
+        themeIcon.className = "fa-solid fa-sun";
+        localStorage.setItem('sw_theme', 'dark');
+      }
+    });
+
+    // Falling flower petals generator
+    function generateFallingPetals() {
+      const container = document.getElementById('petal-container');
+      const petalCount = 15;
+      for (let i = 0; i < petalCount; i++) {
+        setTimeout(() => {
+          const petal = document.createElement('div');
+          petal.className = 'petal';
+          petal.style.left = Math.random() * 100 + 'vw';
+          petal.style.width = Math.random() * 15 + 10 + 'px';
+          petal.style.height = Math.random() * 15 + 10 + 'px';
+          // Variable speeds
+          petal.style.animationDuration = Math.random() * 6 + 6 + 's';
+          container.appendChild(petal);
+          petal.addEventListener('animationend', () => petal.remove());
+        }, i * 1500);
+      }
+      setInterval(() => {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.width = Math.random() * 15 + 10 + 'px';
+        petal.style.height = Math.random() * 15 + 10 + 'px';
+        petal.style.animationDuration = Math.random() * 6 + 6 + 's';
+        container.appendChild(petal);
+        petal.addEventListener('animationend', () => petal.remove());
+      }, 3000);
+    }
+    window.addEventListener('DOMContentLoaded', generateFallingPetals);
+
+    // Live search suggestions box
+    function showSearchSuggestions(val) {
+      const box = document.getElementById('searchSuggestionsBox');
+      const list = document.getElementById('suggestionsList');
+      if (!val) { box.classList.add('hidden'); return; }
+
+      const allProducts = window.getStoreProducts ? window.getStoreProducts() : [];
+      const filtered = allProducts.filter(p => p.name.toLowerCase().includes(val.toLowerCase()));
+      
+      if (filtered.length === 0) {
+        list.innerHTML = `<div class="p-3 text-center text-gray-400">No match found</div>`;
+      } else {
+        list.innerHTML = filtered.map(p => `
+          <button onclick="selectSuggestedProduct('${p.id}')" class="w-full text-left p-2.5 hover:bg-brand-50/50 dark:hover:bg-amber-950/20 font-semibold flex items-center gap-2 border-b border-brand-500/5 last:border-0">
+            <img src="${p.imageUrl}" class="w-6 h-6 object-cover rounded">
+            <span>${p.name}</span>
+          </button>
+        `).join('');
+      }
+      box.classList.remove('hidden');
+    }
+
+    function selectSuggestedProduct(id) {
+      document.getElementById('searchSuggestionsBox').classList.add('hidden');
+      document.getElementById('searchInput').value = '';
+      openProductDetail(id);
+    }
+
+    function focusSearchInput() {
+      navigateTo('all-store');
+      document.getElementById('storeSearchInput').focus();
+    }
+
+    // Dynamic greeting based on timeline
+    const hour = new Date().getHours();
+    const greetingNode = document.getElementById('dayGreeting');
+    if (greetingNode) {
+      if (hour < 12) greetingNode.innerText = "Good Morning 👋";
+      else if (hour < 18) greetingNode.innerText = "Good Afternoon 👋";
+      else greetingNode.innerText = "Good Evening 👋";
+    }
+
+    // ==========================================
+    // SHOPPING BASKET (CART) & CHECKOUT
+    // ==========================================
+    let cart = JSON.parse(localStorage.getItem('sw_cart') || '[]');
+
+    function updateCartUI() {
+      localStorage.setItem('sw_cart', JSON.stringify(cart));
+      const badge = document.getElementById('cartCountBadge');
+      const botBadge = document.querySelector('.wish-cart-count');
+      const container = document.getElementById('cartItemsContainer');
+      const totalNode = document.getElementById('cartTotalSum');
+      const cur = window.getStoreCurrencySymbol ? window.getStoreCurrencySymbol() : '$';
+      
+      const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+      badge.innerText = totalQty;
+      if (botBadge) botBadge.innerText = totalQty;
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="py-20 text-center text-gray-400">
+            <i class="fa-solid fa-basket-shopping text-3xl mb-2"></i>
+            <p class="text-xs font-bold">Your basket is empty.</p>
+          </div>
+        `;
+        totalNode.innerText = `${cur}0.00`;
+      } else {
+        const allProducts = window.getStoreProducts ? window.getStoreProducts() : [];
+        let totalSum = 0;
+        
+        container.innerHTML = cart.map(item => {
+          const p = allProducts.find(prod => prod.id === item.id);
+          if (!p) return '';
+          const lineTotal = p.price * item.qty;
+          totalSum += lineTotal;
+          return `
+            <div class="flex items-center gap-3 py-3 border-b border-brand-500/10">
+              <img src="${p.imageUrl}" class="w-12 h-12 rounded-xl object-cover shrink-0">
+              <div class="flex-grow min-w-0">
+                <h4 class="font-serif font-bold text-xs truncate">${p.name}</h4>
+                <div class="text-[11px] text-brand-accent price-font font-bold">${cur}${parseFloat(p.price).toFixed(2)}</div>
+              </div>
+              <div class="flex items-center border border-brand-500/20 rounded-lg overflow-hidden text-xs shrink-0">
+                <button onclick="changeCartQty('${p.id}', -1)" class="px-2 py-0.5 bg-brand-50 dark:bg-amber-950/10 hover:bg-brand-500 font-bold">-</button>
+                <span class="px-2.5 font-bold">${item.qty}</span>
+                <button onclick="changeCartQty('${p.id}', 1)" class="px-2 py-0.5 bg-brand-50 dark:bg-amber-950/10 hover:bg-brand-500 font-bold">+</button>
+              </div>
+              <button onclick="removeFromCart('${p.id}')" class="text-xs text-red-500 hover:text-red-700 pl-1">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+          `;
+        }).join('');
+        totalNode.innerText = `${cur}${totalSum.toFixed(2)}`;
+      }
+    }
+
+    window.addToBasket = function(id) {
+      const existing = cart.find(item => item.id === id);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ id, qty: 1 });
+      }
+      updateCartUI();
+      showToast("Bouquet added to basket.", "success");
+    }
+
+    window.changeCartQty = function(id, delta) {
+      const item = cart.find(i => i.id === id);
+      if (!item) return;
+      item.qty += delta;
+      if (item.qty <= 0) {
+        cart = cart.filter(i => i.id !== id);
+      }
+      updateCartUI();
+    }
+
+    window.removeFromCart = function(id) {
+      cart = cart.filter(item => item.id !== id);
+      updateCartUI();
+      showToast("Arrangement removed from basket.", "info");
+    }
+
+    window.openCartDrawer = function() {
+      document.getElementById('cartDrawer').classList.remove('hidden');
+    }
+    window.closeCartDrawer = function() {
+      document.getElementById('cartDrawer').classList.add('hidden');
+    }
+
+    // Checkout functions
+    window.openCheckoutModal = function() {
+      if (cart.length === 0) { showToast("Basket is empty.", "error"); return; }
+      closeCartDrawer();
+      const allProducts = window.getStoreProducts ? window.getStoreProducts() : [];
+      const cur = window.getStoreCurrencySymbol ? window.getStoreCurrencySymbol() : '$';
+      let subtotal = 0;
+      cart.forEach(item => {
+        const p = allProducts.find(prod => prod.id === item.id);
+        if (p) subtotal += p.price * item.qty;
+      });
+
+      document.getElementById('checkoutSubtotal').innerText = `${cur}${subtotal.toFixed(2)}`;
+      document.getElementById('checkoutGrandTotal').innerText = `${cur}${(subtotal + 5.00).toFixed(2)}`;
+      document.getElementById('checkoutModal').classList.remove('hidden');
+    }
+
+    window.closeCheckoutModal = function() {
+      document.getElementById('checkoutModal').classList.add('hidden');
+    }
+
+    window.processCheckoutOrder = function(e) {
+      e.preventDefault();
+      const address = document.getElementById('checkoutAddress').value.trim();
+      const gateway = document.querySelector('input[name="payment_method"]:checked').value;
+      const allProducts = window.getStoreProducts ? window.getStoreProducts() : [];
+      const cur = window.getStoreCurrencySymbol ? window.getStoreCurrencySymbol() : '$';
+      const destinationPhone = window.getStorePhone ? window.getStorePhone() : '8801700000000';
+
+      let itemsDetailsText = "";
+      let grandTotal = 5.00; // Shipping base
+
+      cart.forEach((item, idx) => {
+        const p = allProducts.find(prod => prod.id === item.id);
+        if (p) {
+          const priceCombined = p.price * item.qty;
+          grandTotal += priceCombined;
+          itemsDetailsText += `\n[${idx + 1}] *${p.name}* (Qty: ${item.qty}) -> ${cur}${priceCombined.toFixed(2)}`;
+        }
+      });
+
+      const message = `Hello ShopWave, I would like to purchase these bouquets:\n\n===============================${itemsDetailsText}\n===============================\n\n*Preferred Gateway:* ${gateway}\n*Delivery Address:* ${address}\n*Total Payable:* ${cur}${grandTotal.toFixed(2)}\n\nPlease finalize shipping procedures. Thank you!`;
+      const redirectLink = `https://wa.me/${destinationPhone}?text=${encodeURIComponent(message)}`;
+
+      showToast("Redirecting checkout order to WhatsApp...", "success");
+      cart = [];
+      updateCartUI();
+      closeCheckoutModal();
+      setTimeout(() => { window.open(redirectLink, '_blank'); }, 800);
+    }
+
+    // ==========================================
+    // DETAILED OVERLAY SHEET
+    // ==========================================
+    let currentDetailProductId = null;
+    let currentDetailQty = 1;
+
+    window.openProductDetail = function(id) {
+      const allProducts = window.getStoreProducts ? window.getStoreProducts() : [];
+      const p = allProducts.find(prod => prod.id === id);
+      if (!p) return;
+
+      currentDetailProductId = id;
+      currentDetailQty = 1;
+
+      document.getElementById('detailProductImg').src = p.imageUrl;
+      document.getElementById('detailProductCat').innerText = p.category;
+      document.getElementById('detailProductTitle').innerText = p.name;
+      document.getElementById('detailProductPrice').innerText = (window.getStoreCurrencySymbol ? window.getStoreCurrencySymbol() : '$') + parseFloat(p.price).toFixed(2);
+      document.getElementById('detailProductDesc').innerText = p.details;
+      document.getElementById('detailProductQty').innerText = currentDetailQty;
+
+      // Bind actions
+      document.getElementById('detailAddCartBtn').onclick = () => {
+        for (let i = 0; i < currentDetailQty; i++) {
+          addToBasket(id);
+        }
+        closeProductDetailModal();
+      };
+
+      document.getElementById('detailBuyNowBtn').onclick = () => {
+        // Direct WhatsApp Purchase
+        const destinationPhone = window.getStorePhone ? window.getStorePhone() : '8801700000000';
+        const cur = window.getStoreCurrencySymbol ? window.getStoreCurrencySymbol() : '$';
+        const msg = `Hello, I want to order this product from ShopWave:\n\n===============================\n*Product Name:* ${p.name}\n*Quantity:* ${currentDetailQty}\n*Total Price:* ${cur}${parseFloat(p.price * currentDetailQty).toFixed(2)}\n===============================\n\nPlease finalize shipping procedures. Thank you!`;
+        window.open(`https://wa.me/${destinationPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+      };
+
+      document.getElementById('productDetailModal').classList.remove('hidden');
+    }
+
+    window.closeProductDetailModal = function() {
+      document.getElementById('productDetailModal').classList.add('hidden');
+    }
+
+    window.changeDetailQty = function(delta) {
+      currentDetailQty += delta;
+      if (currentDetailQty < 1) currentDetailQty = 1;
+      document.getElementById('detailProductQty').innerText = currentDetailQty;
+    }
+
+    // ==========================================
+    // SYSTEM WISHLIST MECHANISM
+    // ==========================================
+    let wishlist = JSON.parse(localStorage.getItem('sw_wishlist') || '[]');
+
+    function isItemWishlisted(id) {
+      return wishlist.includes(id);
+    }
+
+    window.toggleWishlistInline = function(id) {
+      if (wishlist.includes(id)) {
+        wishlist = wishlist.filter(item => item !== id);
+        showToast("Arrangement removed from wishlist.", "info");
+      } else {
+        wishlist.push(id);
+        showToast("Arrangement added to wishlist.", "success");
+      }
+      localStorage.setItem('sw_wishlist', JSON.stringify(wishlist));
+      
+      // Update badge counts
+      document.querySelectorAll('.wishlist-count-badge').forEach(el => el.innerText = wishlist.length);
+      
+      if (window.updateStorefrontDOM) window.updateStorefrontDOM();
+      updateWishlistUI();
+    }
+
+    function updateWishlistUI() {
+      const container = document.getElementById('wishlistContainer');
+      const allProducts = window.getStoreProducts ? window.getStoreProducts() : [];
+      const cur = window.getStoreCurrencySymbol ? window.getStoreCurrencySymbol() : '$';
+
+      document.querySelectorAll('.wishlist-count-badge').forEach(el => el.innerText = wishlist.length);
+
+      if (wishlist.length === 0) {
+        container.innerHTML = `
+          <div class="py-12 text-center text-gray-400 text-xs font-semibold">
+            <i class="fa-solid fa-heart-crack text-3xl mb-2 text-brand-500/30"></i>
+            <p>Your wishlist is currently empty.</p>
+          </div>
+        `;
+      } else {
+        container.innerHTML = wishlist.map(id => {
+          const p = allProducts.find(prod => prod.id === id);
+          if (!p) return '';
+          return `
+            <div class="flex items-center justify-between py-3 gap-3">
+              <div class="flex items-center gap-3">
+                <img src="${p.imageUrl}" class="w-10 h-10 rounded-lg object-cover shrink-0">
+                <div>
+                  <h4 class="font-serif font-bold text-xs truncate max-w-[150px]">${p.name}</h4>
+                  <div class="text-[10px] text-brand-accent font-bold">${cur}${parseFloat(p.price).toFixed(2)}</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="addToBasket('${p.id}')" class="px-2.5 py-1.5 rounded-lg bg-brand-500 hover:bg-brand-600 text-white text-[10px] font-bold">Add to Cart</button>
+                <button onclick="toggleWishlistInline('${p.id}')" class="text-xs text-rose-500 hover:text-rose-700 p-1"><i class="fa-solid fa-heart-circle-xmark"></i></button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    window.openWishlistModal = function() {
+      updateWishlistUI();
+      document.getElementById('wishlistModal').classList.remove('hidden');
+    }
+    window.closeWishlistModal = function() {
+      document.getElementById('wishlistModal').classList.add('hidden');
+    }
+
+    // ==========================================
+    // USER REGISTRATION & AUTHENTICATION
+    // ==========================================
+    let currentUser = null;
+
+    window.openUserAuthModal = function() {
+      if (currentUser) {
+        document.getElementById('userProfileDropdown').classList.toggle('hidden');
+      } else {
+        document.getElementById('userAuthModal').classList.remove('hidden');
+        switchUserAuthTab('login');
+      }
+    }
+
+    window.closeUserAuthModal = function() {
+      document.getElementById('userAuthModal').classList.add('hidden');
+      document.getElementById('userLoginForm').reset();
+      document.getElementById('userRegisterForm').reset();
+    }
+
+    window.switchUserAuthTab = function(type) {
+      const tabLogin = document.getElementById('tabUserLogin');
+      const tabReg = document.getElementById('tabUserRegister');
+      const formLogin = document.getElementById('userLoginForm');
+      const formReg = document.getElementById('userRegisterForm');
+
+      if (type === 'login') {
+        tabLogin.className = "flex-1 pb-3 text-sm font-serif font-bold border-b-2 border-brand-accent text-brand-accent";
+        tabReg.className = "flex-1 pb-3 text-sm font-serif font-bold border-b-2 border-transparent text-gray-400 hover:text-brand-accent";
+        formLogin.classList.remove('hidden');
+        formReg.classList.add('hidden');
+      } else {
+        tabReg.className = "flex-1 pb-3 text-sm font-serif font-bold border-b-2 border-brand-accent text-brand-accent";
+        tabLogin.className = "flex-1 pb-3 text-sm font-serif font-bold border-b-2 border-transparent text-gray-400 hover:text-brand-accent";
+        formReg.classList.remove('hidden');
+        formLogin.classList.add('hidden');
+      }
+    }
+
+    document.getElementById('userRegisterForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('userRegName').value.trim();
+      const email = document.getElementById('userRegEmail').value.trim().toLowerCase();
+      const pass = document.getElementById('userRegPassword').value;
+
+      let registrations = JSON.parse(localStorage.getItem('sw_registrations') || '[]');
+      if (registrations.some(u => u.email === email)) {
+        showToast("Email already registered.", "error");
+        return;
+      }
+
+      registrations.push({ name, email, pass });
+      localStorage.setItem('sw_registrations', JSON.stringify(registrations));
+      showToast("Account established. You can log in now.", "success");
+      switchUserAuthTab('login');
+    });
+
+    document.getElementById('userLoginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('userLoginEmail').value.trim().toLowerCase();
+      const pass = document.getElementById('userLoginPassword').value;
+
+      let registrations = JSON.parse(localStorage.getItem('sw_registrations') || '[]');
+      const user = registrations.find(u => u.email === email && u.pass === pass);
+
+      if (user) {
+        currentUser = user;
+        closeUserAuthModal();
+        updateUserAuthUI();
+        showToast(`Welcome back, ${user.name}!`, "success");
+      } else {
+        showToast("Invalid security credentials.", "error");
+      }
+    });
+
+    function updateUserAuthUI() {
+      const btn = document.getElementById('userAuthBtn');
+      if (currentUser) {
+        btn.innerHTML = `<i class="fa-solid fa-circle-user text-sm"></i> ${currentUser.name}`;
+        btn.className = "flex items-center gap-2 text-xs font-bold bg-brand-50/50 dark:bg-amber-950/20 text-brand-500 px-4 py-2.5 rounded-xl border border-brand-500/10 hover:bg-brand-50 transition-all";
+        document.getElementById('profileUserName').innerText = currentUser.name;
+        document.getElementById('profileUserEmail').innerText = currentUser.email;
+      } else {
+        btn.innerHTML = `<i class="fa-solid fa-user-circle text-sm"></i> Login`;
+        btn.className = "flex items-center gap-2 text-xs font-bold bg-brand-500 hover:bg-brand-600 text-white px-4 py-2.5 rounded-xl transition-all shadow-md shadow-brand-500/10";
+        document.getElementById('userProfileDropdown').classList.add('hidden');
+      }
+    }
+
+    window.userLogout = function() {
+      currentUser = null;
+      updateUserAuthUI();
+      showToast("Standard session signed out.", "info");
+    }
+
+    // Dismiss dropdowns on document click
+    document.addEventListener('click', (e) => {
+      const profileBtn = document.getElementById('userAuthSection');
+      const profileDropdown = document.getElementById('userProfileDropdown');
+      if (profileBtn && !profileBtn.contains(e.target) && profileDropdown && !profileDropdown.contains(e.target)) {
+        profileDropdown.classList.add('hidden');
+      }
+    });
+
+    // ==========================================
+    // BACKEND ACCESS PORTAL
+    // ==========================================
+    window.openLoginModal = function() {
+      if (window.isAdminLoggedIn) {
+        document.getElementById('adminDashboard').classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+      } else {
+        document.getElementById('adminLoginModal').classList.remove('hidden');
+        document.getElementById('loginEmail').focus();
+      }
+    }
+
+    window.closeLoginModal = function() {
+      document.getElementById('adminLoginModal').classList.add('hidden');
+      document.getElementById('loginErrorMsg').classList.add('hidden');
+      document.getElementById('loginForm').reset();
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass = document.getElementById('loginPassword').value.trim();
+
+      if (email === 'ishtiakyt@gmail.com' && pass === 'admin112232') {
+        window.isAdminLoggedIn = true;
+        closeLoginModal();
+        showToast("Administrative identity verified.", "success");
+        
+        setTimeout(() => {
+          document.getElementById('adminDashboard').classList.remove('hidden');
+          document.body.classList.add('overflow-hidden');
+          if (window.updateAdminTables) window.updateAdminTables();
+          if (window.updateStorefrontDOM) window.updateStorefrontDOM();
+        }, 800);
+      } else {
+        document.getElementById('loginErrorMsg').classList.remove('hidden');
+      }
+    });
+
+    window.adminLogout = function() {
+      window.isAdminLoggedIn = false;
+      document.getElementById('adminDashboard').classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+      showToast("Administrative session closed.", "info");
+      if (window.updateStorefrontDOM) window.updateStorefrontDOM();
+    }
+
+    window.switchDashboardTab = function(tabName) {
+      const tabs = ['productsTab', 'categoriesTab', 'bannersTab', 'settingsTab'];
+      tabs.forEach(t => {
+        document.getElementById(`panel-${t}`).classList.add('hidden');
+        document.getElementById(`btn-${t}`).className = "w-full text-left p-3.5 rounded-xl font-bold text-xs tracking-wider uppercase flex items-center gap-3 transition-all text-gray-600 dark:text-gray-300 hover:bg-brand-50/50 dark:hover:bg-amber-950/10";
+      });
+      document.getElementById(`panel-${tabName}`).classList.remove('hidden');
+      document.getElementById(`btn-${tabName}`).className = "w-full text-left p-3.5 rounded-xl font-bold text-xs tracking-wider uppercase flex items-center gap-3 transition-all bg-brand-500 text-white shadow-md shadow-brand-500/10";
+    }
+
+    // Form Overlay Controllers
+    window.openProductForm = function() {
+      document.getElementById('productForm').reset();
+      document.getElementById('editProductId').value = '';
+      document.getElementById('productFormTitle').innerText = "Register New Arrangement";
+      document.getElementById('productFormContainer').classList.remove('hidden');
+    }
+    window.closeProductForm = function() {
+      document.getElementById('productFormContainer').classList.add('hidden');
+    }
+
+    window.openCategoryForm = function() {
+      document.getElementById('categoryForm').reset();
+      document.getElementById('editCategoryId').value = '';
+      document.getElementById('categoryFormTitle').innerText = "Establish New Category";
+      document.getElementById('categoryFormContainer').classList.remove('hidden');
+    }
+    window.closeCategoryForm = function() {
+      document.getElementById('categoryFormContainer').classList.add('hidden');
+    }
+
+    window.openBannerForm = function() {
+      document.getElementById('bannerForm').reset();
+      document.getElementById('editBannerId').value = '';
+      document.getElementById('bannerFormTitle').innerText = "Configure Promo Banner";
+      document.getElementById('bannerFormContainer').classList.remove('hidden');
+    }
+    window.closeBannerForm = function() {
+      document.getElementById('bannerFormContainer').classList.add('hidden');
+    }
+
+    // Dynamic Toast Notifications
+    window.showToast = function(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      let colors = 'bg-white border-l-4 border-brand-accent text-gray-800 shadow-2xl dark:bg-darkcard dark:text-white';
+      let icon = '<i class="fa-solid fa-circle-check text-brand-accent text-base"></i>';
+
+      if (type === 'error') {
+        colors = 'bg-red-50 border-l-4 border-red-500 text-red-800 shadow-2xl dark:bg-darkcard dark:text-red-100';
+        icon = '<i class="fa-solid fa-circle-exclamation text-red-500 text-base"></i>';
+      } else if (type === 'info') {
+        colors = 'bg-blue-50 border-l-4 border-blue-500 text-blue-800 shadow-2xl dark:bg-darkcard dark:text-blue-100';
+        icon = '<i class="fa-solid fa-circle-info text-blue-500 text-base"></i>';
+      }
+
+      toast.className = `flex items-center gap-3 px-4 py-3.5 rounded-xl ${colors} text-xs font-bold max-w-sm pointer-events-auto transition-all duration-300 transform translate-y-2 opacity-0`;
+      toast.innerHTML = `${icon} <span class="flex-grow">${message}</span>`;
+      container.appendChild(toast);
+
+      // Trigger transition frame
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-2', 'opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    // Initialize Cart
+    updateCartUI();
+  </script>
+</body>
+</html>
