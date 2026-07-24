@@ -272,9 +272,11 @@ function applySystemDesignSettings() {
   if (fPhone) fPhone.textContent = s.phone || "";
 }
 
+}
+
 /**
  * ==========================================================================
- * 4. AUTHENTICATION & SECURE ACCESS CONTROL
+ * 4. AUTHENTICATION & ROLE-BASED ACCESS CONTROL
  * ==========================================================================
  */
 async function handleAuthSubmit(e, mode) {
@@ -285,14 +287,32 @@ async function handleAuthSubmit(e, mode) {
   const statusMsg = document.getElementById("auth-status-msg");
   statusMsg.style.display = "none";
 
+  // ১. এডমিন ইমেইল দিয়ে রেজিস্ট্রেশন (Sign-up) ব্লক করা
+  if (mode === 'register' && email.toLowerCase() === 'admin@gmail.com') {
+    statusMsg.style.display = "block";
+    statusMsg.textContent = "Admin accounts cannot be registered. Please use a different email.";
+    return;
+  }
+
+  // ২. নির্দিষ্ট এডমিন ক্রেডেনশিয়াল চেক (admin@gmail.com এবং admin112232)
+  if (email.toLowerCase() === 'admin@gmail.com') {
+    if (password === 'admin112232') {
+      state.currentUser = { id: "admin_acc", name: "Administrator", email: email, role: "admin" };
+      localStorage.setItem("sandbox_user", JSON.stringify(state.currentUser));
+      showToast("Logged in successfully as Admin.", "success");
+      navigateTo("admin"); // সরাসরি এডমিন প্যানেলে রিডাইরেক্ট হবে
+      return;
+    } else {
+      statusMsg.style.display = "block";
+      statusMsg.textContent = "Invalid Admin Credentials.";
+      return;
+    }
+  }
+
+  // ৩. সাধারণ ইউজারদের জন্য ফায়ারবেস বা লোকাল স্যান্ডবক্স প্রসেস
   if (isFirebaseActive) {
     try {
       if (mode === 'register') {
-        if (email === "admin@gmail.com") {
-          statusMsg.style.display = "block";
-          statusMsg.textContent = "Registration with the reserved administrator email is prohibited.";
-          return;
-        }
         const cred = await auth.createUserWithEmailAndPassword(email, password);
         await db.collection("users").doc(cred.user.uid).set({
           name: name,
@@ -304,102 +324,31 @@ async function handleAuthSubmit(e, mode) {
         const cred = await auth.signInWithEmailAndPassword(email, password);
         const userDoc = await db.collection("users").doc(cred.user.uid).get();
         if (userDoc.exists) {
-          const userData = userDoc.data();
-          if (email === "admin@gmail.com") {
-            userData.role = "admin";
-          }
-          state.currentUser = { id: cred.user.uid, ...userData };
+          state.currentUser = { id: cred.user.uid, ...userDoc.data() };
         } else {
-          const resolvedRole = (email === "admin@gmail.com") ? "admin" : "user";
-          state.currentUser = { id: cred.user.uid, email: cred.user.email, role: resolvedRole };
+          state.currentUser = { id: cred.user.uid, email: cred.user.email, role: "user" };
         }
       }
       showToast("Authentication Successful!", "success");
-      
-      if (state.currentUser.role === "admin" && state.currentUser.email === "admin@gmail.com") {
-        window.location.hash = "#admin";
-      } else {
-        window.location.hash = "#home";
-      }
+      navigateTo("home");
     } catch (err) {
       statusMsg.style.display = "block";
       statusMsg.textContent = err.message;
     }
   } else {
-    // Local Sandbox Mode Logic
+    // ফায়ারবেস নিষ্ক্রিয় থাকলে লোকাল স্টোরেজ স্যান্ডবক্স মোড
     if (mode === 'register') {
-      if (email === "admin@gmail.com") {
-        statusMsg.style.display = "block";
-        statusMsg.textContent = "Registration with the reserved administrator email is prohibited.";
-        return;
-      }
       const sandboxUser = { id: "sb_" + Date.now(), name, email, role: "user" };
       localStorage.setItem("sandbox_user", JSON.stringify(sandboxUser));
       state.currentUser = sandboxUser;
-      showToast("Account created successfully!", "success");
-      window.location.hash = "#home";
     } else {
-      // Sign-in Gate
-      if (email === "admin@gmail.com") {
-        if (password === "admin112232") {
-          state.currentUser = { id: "sb_admin", name: "Administrator", email: "admin@gmail.com", role: "admin" };
-          localStorage.setItem("sandbox_user", JSON.stringify(state.currentUser));
-          showToast("Admin access granted. Welcome to CMS!", "success");
-          window.location.hash = "#admin";
-        } else {
-          statusMsg.style.display = "block";
-          statusMsg.textContent = "Invalid administrator password.";
-        }
-      } else {
-        state.currentUser = { id: "sb_user", name: "Standard Guest", email, role: "user" };
-        localStorage.setItem("sandbox_user", JSON.stringify(state.currentUser));
-        showToast("Logged in as Guest.", "success");
-        window.location.hash = "#home";
-      }
+      state.currentUser = { id: "sb_user", name: "Standard Guest", email, role: "user" };
+      localStorage.setItem("sandbox_user", JSON.stringify(state.currentUser));
     }
+    showToast(`Logged In as ${state.currentUser.role.toUpperCase()}`, "success");
+    navigateTo("home");
   }
-}
-
-function handleAuthLogout() {
-  if (isFirebaseActive) auth.signOut();
-  localStorage.removeItem("sandbox_user");
-  state.currentUser = null;
-  showToast("Logged out successfully.", "success");
-  window.location.hash = "#home";
-}
-
-function handleProfileNav(e) {
-  if (e) e.preventDefault();
-  if (state.currentUser) {
-    if (state.currentUser.role === 'admin' && state.currentUser.email === "admin@gmail.com") {
-      window.location.hash = "#admin";
-    } else {
-      if (confirm(`Logged in as: ${state.currentUser.name || state.currentUser.email}\nDo you want to log out?`)) {
-        handleAuthLogout();
-      }
-    }
-  } else {
-    window.location.hash = "#auth";
   }
-}
-
-function switchAuthTab(tab) {
-  const loginForm = document.getElementById("auth-login-form");
-  const registerForm = document.getElementById("auth-register-form");
-  const tabBtns = document.querySelectorAll(".auth-tab-btn");
-  
-  if (tab === 'login') {
-    loginForm.classList.add("active");
-    registerForm.classList.remove("active");
-    tabBtns[0].classList.add("active");
-    tabBtns[1].classList.remove("active");
-  } else {
-    loginForm.classList.remove("active");
-    registerForm.classList.add("active");
-    tabBtns[0].classList.remove("active");
-    tabBtns[1].classList.add("active");
-  }
-}
 
 /**
  * ==========================================================================
