@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Golap - Canon | Botanical Romance &amp; Luxury Events</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Golap - Canon is a premium flower boutique and luxury event management styling service. Discover seasonal floral bouquets, wedding decorations, bespoke jewelry sets, and custom arrangements." />
+    <meta name="keywords" content="premium flowers, wedding design, luxury event styling, bridal bouquets, roses, peonies, floral design, golap canon" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://golap-canon.web.app/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Golap - Canon | Botanical Romance &amp; Event Styling" />
+    <meta property="og:description" content="Bespoke floral artistry and premium decorations curated for those who appreciate the finer things in life." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1519225495810-7517c29a2e19?auto=format&fit=crop&q=80&w=1600" />
+    <meta property="og:url" content="https://golap-canon.web.app/" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Golap - Canon | Premium Botanical Romance" />
+    <meta name="twitter:description" content="Discover exquisite floral designs and professional event decor services." />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1519225495810-7517c29a2e19?auto=format&fit=crop&q=80&w=1600" />
+
+    <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Florist",
+      "name": "Golap - Canon",
+      "image": "https://images.unsplash.com/photo-1519225495810-7517c29a2e19?auto=format&fit=crop&q=80&w=1600",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dhaka",
+        "addressCountry": "BD"
+      },
+      "telephone": "+8801700000000"
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Material Symbols Outlined -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    
+    <!-- Tailwind CSS (CDN Setup with User Theme Colors) -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                DEFAULT: "#ff3366",
+                hover: "#bd0042",
+                light: "#ff6b8e",
+                subtle: "#400011",
+              },
+              secondary: {
+                DEFAULT: "#debfc3",
+                hover: "#fbdbde",
+                light: "#ffd9dc",
+                subtle: "#5c4649",
+              },
+              surface: {
+                DEFAULT: "#131313",
+                container: "#201f1f",
+                low: "#1c1b1b",
+                high: "#2a2a2a",
+                highest: "#353534",
+                dim: "#0e0e0e"
+              },
+              on: {
+                surface: "#e5e2e1",
+                variant: "#e5bdc0"
+              },
+              accent: "#ff3366"
+            },
+            borderRadius: {
+              "DEFAULT": "0.125rem",
+              "lg": "0.25rem",
+              "xl": "0.5rem",
+              "2xl": "0.75rem",
+              "full": "9999px"
+            },
+            fontFamily: {
+              headline: ["Playfair Display", "serif"],
+              body: ["Manrope", "sans-serif"]
+            }
+          }
+        }
+      }
+    </script>
+    
+    <!-- Stylesheet Link -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-white overflow-x-hidden min-h-screen">
+
+    <!-- Sticky Navigation Header -->
+    <header id="main-header" class="bg-surface-dim/95 backdrop-blur-xl sticky top-0 z-40 border-b border-primary/20 transition-all duration-300 w-full px-4 md:px-16 py-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center gap-4">
+            <button id="menu-btn" class="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors active:scale-95 duration-200 lg:hidden" aria-label="Open Mobile Menu">
+                <span class="material-symbols-outlined text-[28px]">menu</span>
+            </button>
+            <a href="#" class="flex flex-col">
+                <span class="font-headline font-black text-2xl md:text-3xl tracking-tight text-primary filter drop-shadow-[0_0_8px_rgba(255,51,102,0.3)]">GOLAP - CANON</span>
+                <span class="text-[9px] uppercase tracking-[0.25em] text-secondary font-bold -mt-1">Botanical Romance &amp; Luxury Events</span>
+            </a>
+        </div>
+
+        <!-- Desktop Search Bar -->
+        <div class="hidden lg:flex flex-1 max-w-md mx-8 relative">
+            <input id="search-input" class="w-full pl-12 pr-4 py-2 bg-surface-container border border-white/10 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-on-surface placeholder-on-variant/50" placeholder="Search for peonies, jewelry..." type="text"/>
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary">search</span>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="flex items-center gap-3">
+            <button id="search-trigger-mobile" class="lg:hidden text-primary hover:bg-primary/10 p-2 rounded-full transition-colors active:scale-95 duration-200" aria-label="Search">
+                <span class="material-symbols-outlined">search</span>
+            </button>
+            <button id="wishlist-btn" class="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors active:scale-95 duration-200 relative" aria-label="Wishlist">
+                <span class="material-symbols-outlined">favorite</span>
+                <span id="wishlist-badge" class="absolute -top-1 -right-1 bg-primary text-[10px] font-bold text-white h-5 w-5 rounded-full flex items-center justify-center scale-0 transition-transform">0</span>
+            </button>
+            <button id="cart-toggle" class="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors active:scale-95 duration-200 relative" aria-label="Shopping Cart">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                <span id="cart-badge" class="absolute -top-1 -right-1 bg-secondary text-[10px] font-bold text-white h-5 w-5 rounded-full flex items-center justify-center scale-0 transition-transform">0</span>
+            </button>
+            <button id="auth-modal-trigger" class="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors active:scale-95 duration-200 flex items-center gap-1" aria-label="User Account">
+                <span class="material-symbols-outlined">account_circle</span>
+                <span id="user-display-name" class="hidden md:inline text-xs font-semibold max-w-[80px] truncate">Sign In</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <aside id="mobile-menu" class="fixed inset-0 bg-surface-dim/95 backdrop-blur-lg z-50 transform -translate-x-full transition-transform duration-300 lg:hidden flex flex-col p-6">
+        <div class="flex justify-between items-center mb-8 border-b border-white/5 pb-4">
+            <span class="font-headline font-bold text-xl text-primary">Golap - Canon Menu</span>
+            <button id="close-menu-btn" class="p-2 text-on-surface hover:text-primary" aria-label="Close Menu">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-6 text-lg font-medium">
+            <a href="#hero" class="hover:text-primary transition py-1 border-b border-white/5">Home</a>
+            <a href="#products-showcase" class="hover:text-primary transition py-1 border-b border-white/5">Products &amp; Arrangements</a>
+            <a href="#services" class="hover:text-primary transition py-1 border-b border-white/5">Event Services</a>
+            <a href="#about" class="hover:text-primary transition py-1 border-b border-white/5">Our Story</a>
+            <a href="#testimonials" class="hover:text-primary transition py-1 border-b border-white/5">Reviews</a>
+            <a href="#faqs" class="hover:text-primary transition py-1 border-b border-white/5">FAQs</a>
+            <a href="#contact" class="hover:text-primary transition py-1 border-b border-white/5">Contact</a>
+        </nav>
+        <div class="mt-auto pt-6 border-t border-white/5 flex flex-col gap-4">
+            <div id="mobile-user-status" class="text-sm text-on-variant"></div>
+            <button id="mobile-logout-btn" class="hidden w-full py-2 bg-primary/20 text-primary border border-primary/40 rounded-lg font-bold">Logout</button>
+        </div>
+    </aside>
+
+    <!-- Mobile Expandable Search Bar Overlay -->
+    <div id="mobile-search-overlay" class="hidden fixed inset-x-0 top-[60px] bg-surface-container z-35 p-4 border-b border-primary/20 flex gap-2">
+        <input id="search-input-mobile" type="text" class="flex-1 bg-surface-dim border border-white/10 rounded-full py-2 px-4 focus:outline-none focus:ring-1 focus:ring-primary text-sm placeholder-on-variant/40" placeholder="Search for blooms..."/>
+        <button id="close-mobile-search" class="px-3 text-sm text-primary font-bold">Cancel</button>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="max-w-[1440px] mx-auto">
+
+        <!-- CATEGORIES SECTION -->
+        <section class="mt-4 px-4 md:px-16 reveal active">
+            <div class="flex overflow-x-auto gap-4 no-scrollbar pb-2">
+                <button class="category-tab active flex-shrink-0 px-6 py-2 rounded-full bg-primary text-white font-label-md transition-all hover-scale shadow-lg shimmer-btn" data-category="all">All</button>
+                <button class="category-tab flex-shrink-0 px-6 py-2 rounded-full bg-surface-container border border-outline/20 text-on-surface font-label-md hover:border-primary/50 hover:bg-primary/5 hover-scale" data-category="bouquets">Flower Bouquets</button>
+                <button class="category-tab flex-shrink-0 px-6 py-2 rounded-full bg-surface-container border border-outline/20 text-on-surface font-label-md hover:border-primary/50 hover:bg-primary/5 hover-scale" data-category="jewelry">Jewelry Sets</button>
+                <button class="category-tab flex-shrink-0 px-6 py-2 rounded-full bg-surface-container border border-outline/20 text-on-surface font-label-md hover:border-primary/50 hover:bg-primary/5 hover-scale" data-category="gifts">Baskets &amp; Gifts</button>
+                <button class="category-tab flex-shrink-0 px-6 py-2 rounded-full bg-surface-container border border-outline/20 text-on-surface font-label-md hover:border-primary/50 hover:bg-primary/5 hover-scale" data-category="wedding">Wedding Stages</button>
+            </div>
+        </section>
+
+        <!-- HERO BANNER SECTION -->
+        <section id="hero" class="mt-8 px-4 md:px-16 reveal active">
+            <div class="relative rounded-2xl overflow-hidden h-[450px] md:h-[500px] shadow-2xl group border border-white/5">
+                <div id="hero-slider" class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-110" style="background-image: url('https://images.unsplash.com/photo-1519225495810-7517c29a2e19?auto=format&fit=crop&q=80&w=1600')"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-8 md:p-16">
+                    <div class="max-w-2xl transform transition-transform duration-700 group-hover:translate-y-[-15px]">
+                        <span class="inline-block bg-primary px-4 py-1 text-white font-label-md uppercase tracking-widest mb-4 rounded-sm shadow-lg shimmer-btn">New Season Collection</span>
+                        <h2 class="text-white font-headline-lg-mobile md:text-headline-xl leading-none drop-shadow-lg">Vibrant Nature, <br/><span class="text-primary">Captured</span> for You.</h2>
+                        <p class="text-on-surface/90 font-body-lg mt-6 max-w-md drop-shadow-md">Experience the energetic beauty of Golap - Canon. Hand-curated excellence for life's boldest moments.</p>
+                        <div class="mt-8 flex gap-4">
+                            <a href="#products-showcase" class="shimmer-btn text-white px-8 py-4 rounded-full font-label-md transition-all hover-scale shadow-[0_10px_25px_-5px_rgba(255,51,102,0.5)] glow-effect">Shop Now</a>
+                            <a href="#services" class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-full font-label-md transition-all hover:bg-white/20 hover-scale">View Services</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="floral-ribbon absolute bottom-0 left-0 w-full z-10"></div>
+            </div>
+        </section>
+
+        <!-- STATS ANIMATED COUNTERS -->
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-4 py-12 mt-12 mx-4 md:mx-16 border-y border-white/5 bg-surface-container/30 rounded-xl px-4 md:px-8 reveal">
+            <div class="text-center p-4">
+                <div class="text-3xl md:text-5xl font-black font-headline text-primary" data-target="1500">0</div>
+                <div class="text-xs font-bold text-on-variant/70 uppercase tracking-widest mt-2">Bespoke Weddings</div>
+            </div>
+            <div class="text-center p-4">
+                <div class="text-3xl md:text-5xl font-black font-headline text-secondary" data-target="12000">0</div>
+                <div class="text-xs font-bold text-on-variant/70 uppercase tracking-widest mt-2">Bouquets Delivered</div>
+            </div>
+            <div class="text-center p-4">
+                <div class="text-3xl md:text-5xl font-black font-headline text-primary" data-target="48">0</div>
+                <div class="text-xs font-bold text-on-variant/70 uppercase tracking-widest mt-2">Hours Custom Lead</div>
+            </div>
+            <div class="text-center p-4">
+                <div class="text-3xl md:text-5xl font-black font-headline text-secondary" data-target="99.9">0</div>
+                <div class="text-xs font-bold text-on-variant/70 uppercase tracking-widest mt-2">Satisfaction %</div>
+            </div>
+        </section>
+
+        <!-- DYNAMIC FILTER AND SHOPPING CONTAINER -->
+        <section id="products-showcase" class="mt-16 px-4 md:px-16 reveal">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-10">
+                <div>
+                    <span class="text-primary font-label-md tracking-widest uppercase font-bold">Curated Flora</span>
+                    <h2 class="font-headline-lg text-on-surface">Signature Arrangements</h2>
+                </div>
+                
+                <!-- Filter Tool Controls -->
+                <div class="w-full md:w-auto grid grid-cols-1 sm:grid-cols-3 gap-4 bg-surface-container p-4 rounded-xl border border-white/5 flex-1 max-w-2xl">
+                    <div class="relative">
+                        <input id="inline-search" class="w-full pl-10 pr-4 py-2 bg-surface border border-white/10 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary text-sm text-on-surface placeholder-on-variant/40" placeholder="Filter selection..." type="text"/>
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary text-xl">search</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <input id="price-range" class="accent-primary flex-1 h-1 bg-surface rounded-lg appearance-none cursor-pointer" type="range" min="10" max="1000" value="1000"/>
+                        <span id="price-val" class="text-xs text-primary font-bold min-w-[50px] text-right">$1000</span>
+                    </div>
+                    <div class="flex justify-end gap-2 items-center">
+                        <select id="sort-select" class="w-full bg-surface text-on-surface border border-white/10 rounded-lg text-xs p-2 focus:ring-1 focus:ring-primary focus:border-transparent outline-none cursor-pointer">
+                            <option value="newest">Newest Arrivals</option>
+                            <option value="popular">Customer Favorites</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCT CARDS GRID -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[300px]">
+                <!-- Dynamic products rendered here by Javascript -->
+                <div class="col-span-full py-16 text-center text-on-variant flex flex-col items-center">
+                    <span class="material-symbols-outlined text-4xl animate-spin text-primary">progress_activity</span>
+                    <p class="mt-4">Orchestrating our floral collection...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- POPULAR PRODUCTS HORIZONTAL SLIDER -->
+        <section class="mt-16 px-4 md:px-16 reveal">
+            <div class="flex justify-between items-end mb-8">
+                <div>
+                    <span class="text-primary font-label-md tracking-widest uppercase font-bold">Trending Now</span>
+                    <h3 class="font-headline-lg text-on-surface">Popular Blooms</h3>
+                </div>
+                <div class="flex gap-2">
+                    <button id="slide-left-btn" class="p-2 bg-surface-container border border-white/5 rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
+                        <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+                    </button>
+                    <button id="slide-right-btn" class="p-2 bg-surface-container border border-white/5 rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
+                        <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="relative overflow-hidden w-full">
+                <div id="trending-slider-container" class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar pb-6">
+                    <!-- Dynamic products populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES SECTION: Event styling, bridal bouquet, gift items, wedding decoration -->
+        <section id="services" class="mt-16 px-4 md:px-16 reveal">
+            <div class="bg-surface-container rounded-3xl overflow-hidden border border-white/5 shadow-2xl">
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <!-- Bridal Bouquets -->
+                    <div class="p-8 md:p-12 flex flex-col justify-center border-b md:border-b-0 md:border-r border-white/5 group">
+                        <span class="text-primary font-label-md tracking-widest uppercase mb-4 font-bold">Bespoke Design</span>
+                        <h3 class="font-headline-lg text-on-surface mb-6">Bridal Bouquets</h3>
+                        <p class="text-on-surface/70 mb-8 leading-relaxed">Let Golap - Canon craft the most important floral accessory of your life. Custom designs that mirror your personality.</p>
+                        <div class="relative aspect-video rounded-xl overflow-hidden mb-8 shadow-lg">
+                            <img alt="Bridal Bouquets" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&q=80&w=600"/>
+                        </div>
+                        <button class="shimmer-btn text-white py-4 rounded-full font-bold uppercase tracking-widest text-xs hover-scale glow-effect consultation-trigger" data-service="Custom Bouquets">Book Consultation</button>
+                    </div>
+                    <!-- Event Styling -->
+                    <div class="p-8 md:p-12 flex flex-col justify-center group">
+                        <span class="text-primary font-label-md tracking-widest uppercase mb-4 font-bold">Professional Planning</span>
+                        <h3 class="font-headline-lg text-on-surface mb-6">Event Styling</h3>
+                        <p class="text-on-surface/70 mb-8 leading-relaxed">From intimate galas to grand celebrations, we transform spaces into nocturnal botanical paradises with signature Golap - Canon style.</p>
+                        <div class="relative aspect-video rounded-xl overflow-hidden mb-8 shadow-lg">
+                            <img alt="Event Styling" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&q=80&w=600"/>
+                        </div>
+                        <button class="shimmer-btn text-white py-4 rounded-full font-bold uppercase tracking-widest text-xs hover-scale glow-effect consultation-trigger" data-service="Luxury Event Styling">View Portfolio</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT GOLAP - CANON SECTION -->
+        <section id="about" class="mt-28 mx-4 md:mx-16 reveal bg-surface-container/30 border border-white/5 p-6 md:p-12 rounded-3xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="relative h-[300px] md:h-[450px] rounded-2xl overflow-hidden shadow-xl border border-white/5">
+                    <img alt="Luxury Boutique" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&q=80&w=1200"/>
+                    <div class="absolute inset-0 bg-gradient-to-r from-surface to-transparent opacity-40"></div>
+                </div>
+                <div>
+                    <span class="text-primary text-xs font-bold uppercase tracking-[0.25em]">Our Story</span>
+                    <h2 class="font-headline text-3xl md:text-4xl font-black mt-2 leading-tight">Mastering The Language Of Elegant Blooms</h2>
+                    <p class="text-on-variant/80 mt-6 text-sm md:text-base leading-relaxed">
+                        Founded with a simple mission — to translate deep human emotions into architectural floral installations. Golap - Canon stands as the premier destination for patrons seeking bespoke botanical romance, high-end accessories, and wedding event management.
+                    </p>
+                    <p class="text-on-variant/80 mt-4 text-sm md:text-base leading-relaxed">
+                        We ethically source our petals globally, working in concert with growers in the Netherlands, Kenya, and Ecuador. Every bouquet undergoes strict design auditing, ensuring stunning composition, freshness, and luxurious impact.
+                    </p>
+                    <div class="mt-8 flex items-center gap-6">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary text-3xl">eco</span>
+                            <span class="text-xs font-extrabold uppercase tracking-wide text-on-surface">100% Organic<br/>Ethical Blooms</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-secondary text-3xl">verified_user</span>
+                            <span class="text-xs font-extrabold uppercase tracking-wide text-on-surface">Insured Premium<br/>Installations</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIAL SLIDER -->
+        <section id="testimonials" class="mt-28 px-4 md:px-16 reveal">
+            <div class="text-center max-w-xl mx-auto mb-16">
+                <span class="text-primary text-xs font-bold uppercase tracking-[0.25em]">Voices of Praise</span>
+                <h2 class="font-headline text-3xl md:text-4xl font-black mt-2">Shared Experiences</h2>
+            </div>
+
+            <div class="max-w-3xl mx-auto bg-surface-container border border-white/5 p-8 md:p-12 rounded-2xl relative shadow-2xl">
+                <span class="font-headline text-7xl text-primary/10 absolute top-4 left-6 select-none">“</span>
+                <div id="testimonial-slider" class="relative min-h-[160px] overflow-hidden">
+                    <!-- Javascript will render active testimonial here with animations -->
+                </div>
+                <div class="flex justify-between items-center mt-8 border-t border-white/5 pt-6">
+                    <div id="testimonial-dots" class="flex gap-2"></div>
+                    <div class="flex gap-2">
+                        <button id="prev-testi" class="p-2 rounded-full hover:bg-primary/20 text-on-surface transition" aria-label="Previous Testimonial">
+                            <span class="material-symbols-outlined">west</span>
+                        </button>
+                        <button id="next-testi" class="p-2 rounded-full hover:bg-primary/20 text-on-surface transition" aria-label="Next Testimonial">
+                            <span class="material-symbols-outlined">east</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ SECTION (ACCORDION) -->
+        <section id="faqs" class="mt-28 max-w-4xl mx-auto px-4 reveal">
+            <div class="text-center mb-16">
+                <span class="text-primary text-xs font-bold uppercase tracking-[0.25em]">Inquiries &amp; Support</span>
+                <h2 class="font-headline text-3xl md:text-4xl font-black mt-2">Frequently Asked Questions</h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Accordion 1 -->
+                <div class="faq-item bg-surface-container border border-white/5 rounded-xl overflow-hidden transition-all duration-300">
+                    <button class="w-full flex justify-between items-center p-6 text-left outline-none" aria-expanded="false">
+                        <span class="font-bold text-sm md:text-base text-on-surface">How far in advance should I book my wedding or grand event styling?</span>
+                        <span class="material-symbols-outlined text-primary font-bold transition-transform duration-300">expand_more</span>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <p class="px-6 pb-6 text-xs md:text-sm text-on-variant/80 leading-relaxed">
+                            We strongly recommend booking wedding decoration and grand installations 3 to 6 months in advance. This allows us to secure raw materials from global floral brokers and meticulously coordinate colorways and styling schemas.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Accordion 2 -->
+                <div class="faq-item bg-surface-container border border-white/5 rounded-xl overflow-hidden transition-all duration-300">
+                    <button class="w-full flex justify-between items-center p-6 text-left outline-none" aria-expanded="false">
+                        <span class="font-bold text-sm md:text-base text-on-surface">Can I customize a bouquet layout or add specific select jewelry pieces?</span>
+                        <span class="material-symbols-outlined text-primary font-bold transition-transform duration-300">expand_more</span>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <p class="px-6 pb-6 text-xs md:text-sm text-on-variant/80 leading-relaxed">
+                            Absolutely! Every aspect of our products is fully customizable. You can contact us using the quick query form or click 'Order on WhatsApp' on any product page to chat directly with a master floral architect.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEWSLETTER SIGN UP -->
+        <section class="mt-28 relative rounded-3xl overflow-hidden bg-surface-container border border-white/5 p-8 md:p-16 mx-4 md:mx-16 reveal">
+            <div class="absolute -top-12 -right-12 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-12 -left-12 w-64 h-64 bg-secondary/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-2xl mx-auto text-center relative z-10">
+                <span class="text-primary text-xs font-bold uppercase tracking-[0.25em]">Exclusive Updates</span>
+                <h2 class="font-headline text-3xl md:text-4xl font-black mt-2">Join The Inner Circle</h2>
+                <p class="text-on-variant/80 mt-4 text-xs md:text-sm leading-relaxed">
+                    Be the first to learn about seasonal harvests, premium floral care guidelines, limited holiday collections, and exclusive brand events.
+                </p>
+                <form id="newsletter-form" class="mt-8 flex flex-col sm:flex-row gap-2 max-w-lg mx-auto">
+                    <input id="news-email" required class="flex-1 bg-surface-low border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:ring-1 focus:ring-primary text-sm placeholder-on-variant/40" placeholder="Your premium email address..." type="email"/>
+                    <button type="submit" class="shimmer-btn bg-primary hover:bg-primary-hover text-white text-xs font-bold uppercase tracking-widest px-8 py-3 rounded-lg transition duration-300">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="mt-28 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start px-4 md:px-16 reveal">
+            <div class="lg:col-span-5">
+                <span class="text-primary text-xs font-bold uppercase tracking-[0.25em]">Reach Our Studio</span>
+                <h2 class="font-headline text-3xl md:text-4xl font-black mt-2 leading-tight">We Sculpt Creative Botanicals Personalized For You</h2>
+                <div class="mt-8 space-y-4 text-sm">
+                    <div class="flex items-center gap-4 p-4 bg-surface-container rounded-lg">
+                        <span class="material-symbols-outlined text-primary text-2xl">pin_drop</span>
+                        <div>
+                            <p class="font-bold">Studio Headquarters</p>
+                            <p class="text-xs text-on-variant/80">Road 12, Banani, Dhaka, Bangladesh</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form id="contact-form" class="lg:col-span-7 bg-surface-container border border-white/5 p-6 md:p-10 rounded-2xl space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <input id="contact-name" required class="w-full bg-surface-low border border-white/10 rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary focus:border-transparent outline-none" type="text" placeholder="Full Name"/>
+                    </div>
+                    <div>
+                        <input id="contact-email" required class="w-full bg-surface-low border border-white/10 rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary focus:border-transparent outline-none" type="email" placeholder="Email Address"/>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <input id="contact-phone" class="w-full bg-surface-low border border-white/10 rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary focus:border-transparent outline-none" type="tel" placeholder="Phone Number"/>
+                    </div>
+                    <div>
+                        <select id="contact-subject" class="w-full bg-surface-low border border-white/10 rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary focus:border-transparent outline-none cursor-pointer">
+                            <option value="General Bouquet Order">General Bouquet Order</option>
+                            <option value="Wedding Event Styling">Wedding Event Styling</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <textarea id="contact-message" rows="4" required class="w-full bg-surface-low border border-white/10 rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary focus:border-transparent outline-none" placeholder="Vision details..."></textarea>
+                </div>
+                <button type="submit" class="w-full py-4 rounded-lg bg-primary hover:bg-primary-hover text-white text-xs font-bold uppercase tracking-widest transition duration-300 shimmer-btn">
+                    Transmit Consultation Request
+                </button>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- PREMIUM FOOTER -->
+    <footer class="mt-32 bg-surface-dim border-t border-white/5 py-16 px-4 md:px-12 text-on-variant">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 pb-12 border-b border-white/5">
+            <div>
+                <span class="font-headline font-black text-2xl text-primary tracking-tight">GOLAP - CANON</span>
+                <p class="mt-4 text-xs leading-relaxed max-w-sm">Luxury floral arrangements, organic flower custom layouts, and grand stage decorations.</p>
+            </div>
+            <div>
+                <p class="font-bold text-sm text-on-surface uppercase tracking-wider mb-4">Categories</p>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#products-showcase" class="hover:text-primary transition">Bespoke Bouquets</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto pt-8 flex flex-col sm:flex-row justify-between items-center text-[10px] uppercase font-bold tracking-widest">
+            <p>© 2026 Golap - Canon Premium. All design and architectural rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- STICKY WHATSAPP SUPPORT BUTTON -->
+    <a href="https://wa.me/8801700000000?text=Hello%20Golap-Canon" target="_blank" id="whatsapp-support" class="fixed bottom-24 sm:bottom-8 right-6 z-40 bg-[#25D366] text-white p-4 rounded-full shadow-2xl animate-pulse-soft hover:scale-110 transition-transform duration-300 flex items-center justify-center group" aria-label="WhatsApp Support Chat">
+        <svg class="group-hover:rotate-12 transition-transform h-6 w-6" fill="currentColor" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.601 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"></path>
+        </svg>
+        <span class="absolute right-full mr-3 bg-surface border border-white/10 text-on-surface text-[10px] font-extrabold uppercase py-1 px-3.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none tracking-widest shadow-lg">Chat With Stylist</span>
+    </a>
+
+    <!-- ========================================== -->
+    <!-- MODALS SECTION -->
+    <!-- ========================================== -->
+
+    <!-- SIDE-DRAWER SHOPPING CART -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 pointer-events-none hidden">
+        <div id="cart-overlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 transition-opacity duration-300 pointer-events-auto"></div>
+        <aside id="cart-aside" class="absolute right-0 top-0 h-full w-full max-w-md bg-surface-container border-l border-white/5 pointer-events-auto transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+            <div class="p-6 border-b border-white/5 flex justify-between items-center bg-surface-dim">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">shopping_bag</span>
+                    <h3 class="font-headline font-bold text-lg">Your Botanical Selection</h3>
+                </div>
+                <button id="cart-close" class="p-2 hover:text-primary"><span class="material-symbols-outlined">close</span></button>
+            </div>
+            <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+            <div class="p-6 bg-surface-dim border-t border-white/5 space-y-4">
+                <div class="flex justify-between items-center text-sm font-bold">
+                    <span>Summary Subtotal</span>
+                    <span id="cart-subtotal" class="text-primary text-base font-black">$0.00</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <button id="clear-cart-btn" class="py-3 bg-surface hover:bg-white/5 text-xs font-bold uppercase border border-white/10 rounded-lg text-on-variant transition">Clear Select</button>
+                    <button id="checkout-btn" class="shimmer-btn py-3 bg-primary hover:bg-primary-hover text-white text-xs font-bold uppercase rounded-lg transition tracking-wide">Checkout Order</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- QUICK VIEW MODAL -->
+    <div id="quick-view-modal" class="fixed inset-0 z-50 pointer-events-none hidden flex items-center justify-center p-4">
+        <div id="qv-overlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm opacity-0 transition-opacity pointer-events-auto"></div>
+        <div id="qv-content" class="bg-surface-container border border-white/5 rounded-2xl w-full max-w-3xl overflow-hidden relative shadow-2xl pointer-events-auto transform scale-95 opacity-0 transition-all duration-300">
+            <button id="qv-close" class="absolute top-4 right-4 p-2 rounded-full bg-surface-low border border-white/10 hover:text-primary transition" aria-label="Close details"><span class="material-symbols-outlined text-sm">close</span></button>
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                <div class="h-64 md:h-full min-h-[300px] bg-surface relative overflow-hidden">
+                    <img id="qv-image" alt="Product Image" class="w-full h-full object-cover"/>
+                    <span id="qv-badge" class="absolute top-4 left-4 bg-primary text-[10px] font-bold text-white px-3 py-1 rounded-full uppercase">Discount</span>
+                </div>
+                <div class="p-8 flex flex-col justify-between">
+                    <div>
+                        <span id="qv-category" class="text-secondary text-[10px] uppercase font-bold tracking-widest">Flora</span>
+                        <h3 id="qv-name" class="font-headline font-bold text-2xl mt-1 text-on-surface">Midnight Crimson</h3>
+                        <div class="flex items-center gap-2 mt-2">
+                            <div class="flex text-yellow-500 text-sm">★★★★★</div>
+                            <span id="qv-rating" class="text-xs text-on-variant/80">(4.9)</span>
+                        </div>
+                        <p id="qv-desc" class="text-on-variant/80 text-xs leading-relaxed mt-4"></p>
+                        <div class="flex items-baseline gap-2 mt-4">
+                            <span id="qv-price" class="text-primary font-black text-xl">$0.00</span>
+                            <span id="qv-old-price" class="text-on-variant/50 line-through text-xs">$0.00</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-white/5 space-y-4">
+                        <div class="flex items-center gap-4">
+                            <label for="qv-qty-val" class="text-xs font-bold text-on-variant uppercase">Quantity:</label>
+                            <div class="flex items-center bg-surface-low border border-white/10 rounded-lg p-1">
+                                <button id="qv-qty-minus" class="p-1 hover:text-primary"><span class="material-symbols-outlined text-sm">remove</span></button>
+                                <span id="qv-qty-val" class="px-3 text-xs font-bold">1</span>
+                                <button id="qv-qty-plus" class="p-1 hover:text-primary"><span class="material-symbols-outlined text-sm">add</span></button>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button id="qv-add-cart" class="w-full py-3 bg-secondary hover:bg-secondary-hover text-white text-xs font-bold uppercase rounded-lg transition">Add To Cart</button>
+                            <button id="qv-order-whatsapp" class="w-full py-3 bg-[#25D366] hover:bg-[#1ebd54] text-white text-xs font-bold uppercase rounded-lg transition flex items-center justify-center gap-1">Order on WhatsApp</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WHATSAPP CHECKOUT MODAL -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 pointer-events-none hidden flex items-center justify-center p-4">
+        <div id="checkout-overlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm opacity-0 transition-opacity pointer-events-auto"></div>
+        <div id="checkout-content" class="bg-surface-container border border-white/5 rounded-2xl w-full max-w-lg overflow-hidden relative shadow-2xl pointer-events-auto transform scale-95 opacity-0 transition-all duration-300 p-8">
+            <button id="checkout-close" class="absolute top-4 right-4 p-2 hover:text-primary"><span class="material-symbols-outlined">close</span></button>
+            <div class="flex items-center gap-2 mb-6 border-b border-white/5 pb-4">
+                <span class="material-symbols-outlined text-[#25D366]">shopping_cart_checkout</span>
+                <h3 class="font-headline font-bold text-xl">Quick WhatsApp Checkout</h3>
+            </div>
+            <form id="whatsapp-checkout-form" class="space-y-4">
+                <div>
+                    <label for="wa-cust-name" class="block text-xs font-bold uppercase text-on-variant tracking-wider mb-1.5">Recipient Full Name</label>
+                    <input id="wa-cust-name" required class="w-full bg-surface-low border border-white/10 rounded-lg p-2.5 text-sm focus:ring-1 focus:ring-primary focus:border-transparent outline-none" type="text" placeholder="Recipient name"/>
+                </div>
+                <div>
+                    <label for="wa-cust-phone" class="block text-xs font-bold uppercase text-on-variant tracking-wider mb-1.5">Contact Phone Number</label>
+                    <input id="wa-cust-phone" required class="w-full bg-surface-low border border-white/10 rounded-lg p-2.5 text-sm focus:ring-1 focus:ring-primary focus:border-transparent outline-none" type="tel" placeholder="+880 ..."/>
+                </div>
+                <div>
+                    <label for="wa-cust-address" class="block text-xs font-bold uppercase text-on-variant tracking-wider mb-1.5">Delivery Address</label>
+                    <textarea id="wa-cust-address" required rows="2" class="w-full bg-surface-low border border-white/10 rounded-lg p-2.5 text-sm focus:ring-1 focus:ring-primary focus:border-transparent outline-none" placeholder="Complete address"></textarea>
+                </div>
+                <div>
+                    <label for="wa-cust-date" class="block text-xs font-bold uppercase text-on-variant tracking-wider mb-1.5">Delivery Date</label>
+                    <input id="wa-cust-date" required class="w-full bg-surface-low border border-white/10 rounded-lg p-2.5 text-sm focus:ring-1 focus:ring-primary focus:border-transparent outline-none" type="date"/>
+                </div>
+                <div class="border-t border-white/5 pt-4 mt-6">
+                    <div class="flex justify-between items-center text-sm font-bold mb-4">
+                        <span>Total Items Payable</span>
+                        <span id="wa-checkout-total" class="text-primary text-base font-black">$0.00</span>
+                    </div>
+                    <button type="submit" class="w-full py-3.5 bg-[#25D366] hover:bg-[#1ebd54] text-white text-xs font-bold uppercase tracking-widest rounded-lg transition duration-300 flex items-center justify-center gap-2">
+                        Launch Automated WhatsApp Checkout
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- AUTHENTICATION DIALOG (LOGIN/REGISTER) -->
+    <div id="auth-modal" class="fixed inset-0 z-50 pointer-events-none hidden flex items-center justify-center p-4">
+        <div id="auth-overlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm opacity-0 transition-opacity pointer-events-auto"></div>
+        <div id="auth-content" class="bg-surface-container border border-white/5 rounded-2xl w-full max-w-md overflow-hidden relative shadow-2xl pointer-events-auto transform scale-95 opacity-0 transition-all duration-300">
+            <div class="flex border-b border-white/5 bg-surface-dim">
+                <button id="tab-login" class="flex-1 py-4 font-headline font-bold text-center border-b-2 border-primary text-primary transition-all text-sm uppercase tracking-wider">Sign In</button>
+                <button id="tab-register" class="flex-1 py-4 font-headline font-bold text-center border-b-2 border-transparent text-on-variant/50 hover:text-on-surface transition-all text-sm uppercase tracking-wider">Register</button>
+                <button id="auth-close" class="px-4 text-on-variant hover:text-primary transition" aria-label="Close dialogue"><span class="material-symbols-outlined">close</span></button>
+            </div>
+            <div id="auth-login-box" class="p-8 space-y-4">
+                <form id="login-form" class="space-y-4">
+                    <div>
+                        <label for="login-email" class="block text-xs font-bold uppercase text-on-variant tracking-wider mb-2">Registered Email</label>
+                        <input id="login-email" required class="w-full bg-surface-low border border-white/10 rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary focus:border-transparent outline-none" type="email" placeholder="name@domain.com"/>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <label for="login-password" class="block text-xs font-bold uppercase text-on-variant tracking-wider">Password</label>
+                            <button type="button" id="forgot-password-btn" class="text-xs text-primary hover:underline">Forgot password?</button>
+                        </div>
+                        <input id="login-password" required class="w-full bg-surface-low border border-white/10 rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary focus:border-transparent outline-none" type="password" placeholder="••••••••"/>
+                    </div>
+                    <button type="submit" class="w-full py-3.5 bg-primary hover:bg-primary-hover text-white text-xs font-bold uppercase tracking-widest rounded-lg transition duration-300 shadow-md">Sign In Securely</button>
+                </form>
+                <div class="relative flex py-2 items-center">
+                    <div class="flex-grow border-t border-white/10"></div>
+                    <span class="flex-shrink mx-4 text-xs uppercase text-on-variant/50 font-bold">or connect with</span>
+                    <div class="flex-grow border-t border-white/10"></div>
+                </div>
+                <button id="google-login-btn" class="w-full py-3 bg-white hover:bg-neutral-100 text-black text-xs font-bold uppercase rounded-lg transition flex items-center justify-center gap-2">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v3.92h6.61a5.66 5.66 0 0 1-2.45 3.71v3.08h3.95a11.96 11.96 0 0 0 3.63-8.64z"/><path fill="#34A853" d="M12 24c3.24 0 5.97-1.08 7.96-2.91l-3.95-3.08c-1.12.75-2.53 1.2-4.01 1.2-3.09 0-5.71-2.09-6.64-4.9H1.36v3.18A11.98 11.98 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.36 14.31A7.16 7.16 0 0 1 5 12c0-.81.14-1.59.36-2.31V6.51H1.36A11.94 11.94 0 0 0 0 12c0 2.22.61 4.3 1.68 6.09l3.68-1.78z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.96 1.19 15.24 0 12 0 7.34 0 3.36 2.68 1.36 6.51l4 3.1c.93-2.8 3.55-4.86 6.64-4.86z"/></svg>
+                    Continue with Google
+                </button>
+            </div>
+            <div id="auth-register-box" class="p-8 space-y-4 hidden">
+                <form id="register-form" class="space-y-4">
+                    <div>
+                        <label for="reg-name" class="block text-xs font-bold uppercase text-on-variant tracking-wider mb-2">Display Name</label>
+                        <input id="reg-name" required class="w-full bg-surface-low border border-white/10 rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary focus:border-transparent outline-none" type="text" placeholder="Your Name"/>
+                    </div>
+                    <div>
+                        <label for="reg-email" class="block text-xs font-bold uppercase text-on-variant tracking-wider mb-2">Email Address</label>
+                        <input id="reg-email" required class="w-full bg-surface-low border border-white/10 rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary focus:border-transparent outline-none" type="email" placeholder="name@domain.com"/>
+                    </div>
+                    <div>
+                        <label for="reg-password" class="block text-xs font-bold uppercase text-on-variant tracking-wider mb-2">Create Password</label>
+                        <input id="reg-password" required class="w-full bg-surface-low border border-white/10 rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary focus:border-transparent outline-none" type="password" placeholder="At least 6 characters"/>
+                    </div>
+                    <button type="submit" class="w-full py-3.5 bg-secondary hover:bg-secondary-hover text-white text-xs font-bold uppercase tracking-widest rounded-lg transition duration-300">Create Account</button>
+                </form>
+            </div>
+            <div id="auth-status-container" class="hidden px-8 pb-8 text-center text-xs font-bold text-red-500"></div>
+        </div>
+    </div>
+
+    <!-- TABBED ADVANCED ADMIN WORKSPACE MODAL -->
+    <div id="admin-modal" class="fixed inset-0 z-50 pointer-events-none hidden flex items-center justify-center p-4">
+        <div id="admin-overlay" class="absolute inset-0 bg-black/85 backdrop-blur-md opacity-0 transition-opacity pointer-events-auto"></div>
+        <div id="admin-content" class="bg-surface-container border border-white/5 rounded-2xl w-full max-w-6xl h-[90vh] overflow-hidden relative shadow-2xl pointer-events-auto transform scale-95 opacity-0 transition-all duration-300 flex flex-col md:flex-row">
+            
+            <!-- Left Navigation Sidebar -->
+            <aside class="w-full md:w-64 bg-surface-dim border-r border-white/5 p-6 flex flex-col justify-between shrink-0">
+                <div class="space-y-6">
+                    <div class="flex items-center gap-2 pb-4 border-b border-white/5">
+                        <span class="material-symbols-outlined text-primary text-3xl">admin_panel_settings</span>
+                        <div>
+                            <h3 class="font-headline font-bold text-lg text-primary">Admin Control</h3>
+                            <p class="text-[9px] text-on-variant/50 uppercase tracking-widest">Golap - Canon Suite</p>
+                        </div>
+                    </div>
+                    <nav class="flex flex-row md:flex-col gap-2 overflow-x-auto no-scrollbar md:overflow-visible">
+                        <button class="admin-tab-btn active w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-xs font-bold uppercase tracking-wider transition" data-tab="dashboard">
+                            <span class="material-symbols-outlined text-lg">dashboard</span> <span class="hidden md:inline">Dashboard</span>
+                        </button>
+                        <button class="admin-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-xs font-bold uppercase tracking-wider transition" data-tab="products">
+                            <span class="material-symbols-outlined text-lg">inventory_2</span> <span class="hidden md:inline">Products</span>
+                        </button>
+                        <button class="admin-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-xs font-bold uppercase tracking-wider transition" data-tab="orders">
+                            <span class="material-symbols-outlined text-lg">receipt_long</span> <span class="hidden md:inline">Orders</span>
+                        </button>
+                        <button class="admin-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-xs font-bold uppercase tracking-wider transition" data-tab="reviews">
+                            <span class="material-symbols-outlined text-lg">rate_review</span> <span class="hidden md:inline">Reviews &amp; Banners</span>
+                        </button>
+                        <button class="admin-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-xs font-bold uppercase tracking-wider transition" data-tab="settings">
+                            <span class="material-symbols-outlined text-lg">settings</span> <span class="hidden md:inline">Settings</span>
+                        </button>
+                    </nav>
+                </div>
+                <button id="admin-close" class="mt-4 md:mt-0 w-full py-3 bg-surface-low border border-white/10 text-on-surface hover:text-primary rounded-lg text-xs font-bold uppercase tracking-wider transition flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm">close</span> Exit Panel
+                </button>
+            </aside>
+
+            <!-- Right Workspace Section -->
+            <div class="flex-1 flex flex-col overflow-hidden bg-surface-container">
+                <div class="p-6 border-b border-white/5 bg-surface-dim flex justify-between items-center">
+                    <h4 id="admin-workspace-title" class="font-headline font-bold text-xl text-on-surface">Overview Dashboard</h4>
+                    <span class="text-[10px] bg-primary/20 text-primary border border-primary/30 px-3 py-1 rounded-full font-bold uppercase tracking-widest">Admin Live Session</span>
+                </div>
+                
+                <!-- Tab Workspaces container -->
+                <div id="admin-tab-workspace" class="flex-1 overflow-y-auto p-6 md:p-8 space-y-8">
+                    <!-- Javascript will dynamically inject requested tab screens here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Link -->
+    <script type="module" src="script.js"></script>
+</body>
+</html>
