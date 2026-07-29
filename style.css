@@ -1,0 +1,202 @@
+/* ==========================================================================
+   GOLAP - CANON | SYSTEM CUSTOM STYLING (STYLE.CSS)
+   ========================================================================== */
+
+/* Smooth Scrolling & System Resets */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+/* Custom Scrollbar configuration */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0e0e0e;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2a2a2a;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 51, 102, 0.1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ff3366;
+}
+
+/* Scrollbar Hiding Helper */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* ==========================================================================
+   ANIMATION KEYFRAMES
+   ========================================================================== */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-15px) scale(1.02);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes pulse-soft {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 51, 102, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(255, 51, 102, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 51, 102, 0.7);
+    }
+}
+
+@keyframes toastSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ==========================================================================
+   UTILITY & STRUCTURAL INTERACTIONS
+   ========================================================================== */
+
+/* Sticky Header Scroll shrink */
+#main-header.shrinked {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: rgba(14, 14, 14, 0.96);
+    border-color: rgba(255, 51, 102, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+/* Scroll Reveal animations */
+.reveal {
+    opacity: 0;
+    will-change: opacity, transform;
+}
+
+.reveal.active {
+    animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Premium Glowing Rose Ribbons */
+.floral-ribbon {
+    height: 4px;
+    background: linear-gradient(90deg, #ff3366 0%, #ff6b8e 100%);
+}
+
+/* Shimmer Button and dynamic gradient hover configurations */
+.shimmer-btn {
+    background: linear-gradient(90deg, #ff3366, #ff6b8e, #ff3366);
+    background-size: 200% auto;
+    animation: shimmer 3s linear infinite;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.shimmer-btn:hover {
+    background-position: right center;
+    box-shadow: 0 0 20px rgba(255, 51, 102, 0.4);
+}
+
+/* Scale Interaction on hover */
+.hover-scale {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+}
+
+.hover-scale:hover, .hover-scale:active {
+    transform: scale(1.04);
+}
+
+/* Subtle Cards soft glowing shadow */
+.glow-effect:hover {
+    box-shadow: 0 0 20px rgba(255, 51, 102, 0.3);
+    border-color: rgba(255, 51, 102, 0.2);
+}
+
+/* FAQ Collapsible Accordions transition heights */
+.faq-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+.faq-item.active .faq-content {
+    max-height: 250px;
+    opacity: 1;
+}
+
+.faq-item.active {
+    border-color: rgba(255, 51, 102, 0.3);
+    background-color: rgba(32, 31, 31, 0.8);
+}
+
+.faq-item.active button span:last-child {
+    transform: rotate(180deg);
+}
+
+/* Toast Node system container */
+.toast-node {
+    animation: toastSlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Premium Navigation layout transitions */
+.admin-tab-btn {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.admin-tab-btn.active {
+    background-color: rgba(255, 51, 102, 0.15);
+    color: #ff3366 !important;
+}
+
+.admin-tab-btn.active span {
+    color: #ff3366 !important;
+}
+
+/* Float Animation Utility */
+.animate-float {
+    animation: float 5s ease-in-out infinite;
+}
+
+/* System Heights */
+body {
+    min-height: max(884px, 100dvh);
+}
